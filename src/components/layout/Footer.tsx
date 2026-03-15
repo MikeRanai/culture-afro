@@ -16,7 +16,6 @@ function TikTokIcon({ className }: { className?: string }) {
 const footerLinks = [
   { label: "Mission", href: "#mission" },
   { label: "Ateliers", href: "#ateliers" },
-  { label: "Événements", href: "#evenements" },
   { label: "Témoignages", href: "#temoignages" },
   { label: "Engagement", href: "#benevole" },
   { label: "FAQ", href: "#faq" },

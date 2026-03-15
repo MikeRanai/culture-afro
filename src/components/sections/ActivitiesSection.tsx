@@ -63,7 +63,24 @@ const activities = [
       { icon: Palette, label: "Arts créatifs" },
       { icon: Drama, label: "Masques & Bijoux" },
     ],
-    modalContent: null,
+    modalContent: {
+      intro:
+        "Plongez dans un univers créatif inspiré de la culture afro ! Nos ateliers de loisirs créatifs sont des moments de partage, de détente et de reconnexion à nos racines culturelles.",
+      objective:
+        "Proposer un espace convivial où chacun·e peut explorer sa créativité tout en découvrant les arts et traditions de la culture afro.",
+      closing:
+        "S'entourer pour mieux s'accepter, créer ensemble et célébrer notre culture.",
+      details: [
+        { icon: Palette, label: "Couture, peinture, fabrication de bijoux et accessoires" },
+        { icon: Drama, label: "Masques, tissage et créations inspirées de la culture afro" },
+        { icon: Calendar, label: "Dates communiquées sur nos réseaux sociaux" },
+      ],
+      note: "Ouvert à toutes et tous, débutant·es bienvenu·es !",
+      extras: [
+        "Matériel fourni sur place",
+        "Ambiance conviviale et bienveillante",
+      ],
+    },
   },
 ];
 
@@ -86,7 +103,7 @@ function ActivityModal({
 }) {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center px-4"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center px-0 sm:px-4"
       role="dialog"
       aria-modal="true"
       aria-label={title}
@@ -99,7 +116,7 @@ function ActivityModal({
       />
 
       {/* Panel */}
-      <div className="relative w-full max-w-lg animate-in zoom-in-95 fade-in rounded-2xl bg-white shadow-2xl">
+      <div className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto overscroll-contain rounded-t-2xl sm:rounded-2xl bg-white shadow-2xl">
         {/* Barre d'accent */}
         <div
           aria-hidden="true"

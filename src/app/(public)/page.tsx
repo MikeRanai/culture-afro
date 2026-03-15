@@ -7,7 +7,6 @@ import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import EngagementSection from "@/components/sections/EngagementSection";
 import FAQSection from "@/components/sections/FAQSection";
 import ContactSection from "@/components/sections/ContactSection";
-import EventsSection from "@/components/sections/EventsSection";
 import SocialSection from "@/components/sections/SocialSection";
 import Footer from "@/components/layout/Footer";
 
@@ -37,7 +36,6 @@ function Navigation() {
           {[
             { label: "Mission", href: "#mission" },
             { label: "Ateliers", href: "#ateliers" },
-            { label: "Événements", href: "#evenements" },
             { label: "FAQ", href: "#faq" },
             { label: "Contact", href: "#contact" },
           ].map((item) => (
@@ -99,7 +97,6 @@ function MobileMenu() {
           {[
             { label: "Mission", href: "#mission" },
             { label: "Ateliers", href: "#ateliers" },
-            { label: "Événements", href: "#evenements" },
             { label: "FAQ", href: "#faq" },
             { label: "Contact", href: "#contact" },
           ].map((item) => (
@@ -166,9 +163,9 @@ function HeroSection() {
         {/* Colonne texte */}
         <div className="flex flex-col items-start gap-6">
           {/* Badge */}
-          <span className="inline-flex items-center gap-2 rounded-full bg-afro-orange/10 px-4 py-1.5 text-sm font-medium text-afro-orange">
+          <span className="inline-flex items-center gap-2 rounded-full bg-afro-orange/10 px-3 py-1.5 text-xs sm:text-sm font-medium text-afro-orange sm:px-4">
             <span
-              className="inline-block h-2 w-2 rounded-full bg-afro-orange animate-pulse"
+              className="inline-block h-2 w-2 shrink-0 rounded-full bg-afro-orange animate-pulse"
               aria-hidden="true"
             />
             La Réunion · Éducation capillaire
@@ -272,7 +269,6 @@ export default function HomePage() {
         <MissionSection />
         <ActivitiesSection />
         <StatsSection />
-        <EventsSection />
         <TestimonialsSection />
         <EngagementSection />
         <FAQSection />

@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@config "../../tailwind.config.ts";
+
+@layer base {
+  body {
+    @apply bg-afro-light text-afro-dark antialiased;
+  }
+
+  /* PRÉVENTION DU ZOOM iOS (CRITIQUE) - Règle Universelle 2.2 */
+  input, select, textarea {
+    font-size: 16px !important;
+    min-height: 44px;
+  }
+}
+
+@layer utilities {
+  /* Scrollbar Subtile - Règle Universelle 6.5 */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(176, 22, 84, 0.2); /* Touche de magenta */
+    border-radius: 3px;
+  }
+}
+
+/* Accessibilité : Mouvement Réduit - Règle Universelle 4.3 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

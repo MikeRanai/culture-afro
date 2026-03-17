@@ -24,6 +24,32 @@ export const metadata: Metadata = {
   verification: {
     google: "QURsNRlnqEzCOs3nJZoycCljXDAhhwo7ZcQLzVnmbDc",
   },
+  icons: {
+    icon: "/images/logo-culture-afro.svg",
+    apple: "/images/logo-culture-afro.svg",
+  },
+  openGraph: {
+    title: "Association Culture Afro | Éducation Capillaire à La Réunion",
+    description: "Révélez la beauté de vos boucles naturelles. Éducation capillaire et loisirs créatifs afro à La Réunion.",
+    url: "https://cultureafro.re",
+    siteName: "Association Culture Afro",
+    locale: "fr_FR",
+    type: "website",
+    images: [
+      {
+        url: "/images/hero-img.webp",
+        width: 1200,
+        height: 1200,
+        alt: "Association Culture Afro - Éducation capillaire à La Réunion",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Association Culture Afro | Éducation Capillaire à La Réunion",
+    description: "Révélez la beauté de vos boucles naturelles. Éducation capillaire et loisirs créatifs afro à La Réunion.",
+    images: ["/images/hero-img.webp"],
+  },
 };
 
 export default function RootLayout({

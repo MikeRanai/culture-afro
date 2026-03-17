@@ -132,7 +132,7 @@ function MobileMenu() {
 
 function FloatingCard() {
   return (
-    <div className="animate-float absolute -bottom-6 -left-6 z-10 rounded-2xl bg-white p-4 shadow-xl shadow-afro-dark/10 sm:-bottom-4 sm:-left-8">
+    <div className="animate-float absolute -bottom-6 left-1/2 -translate-x-1/2 z-10 rounded-2xl bg-white p-4 shadow-xl shadow-afro-dark/10 sm:-bottom-4 sm:left-1/2 sm:-translate-x-1/2">
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-afro-orange/10">
           <Sparkles className="h-5 w-5 text-afro-orange" />
@@ -218,26 +218,6 @@ function HeroSection() {
             </a>
           </div>
 
-          {/* Social proof */}
-          <div className="flex items-center gap-4 pt-4">
-            <div className="flex -space-x-2" aria-hidden="true">
-              {[
-                "bg-afro-orange",
-                "bg-afro-magenta",
-                "bg-afro-orange/70",
-                "bg-afro-magenta/70",
-              ].map((bg, i) => (
-                <div
-                  key={i}
-                  className={`h-9 w-9 rounded-full ${bg} ring-2 ring-afro-light`}
-                />
-              ))}
-            </div>
-            <p className="text-sm text-afro-dark/60">
-              <span className="font-semibold text-afro-dark">150+</span>{" "}
-              membres actifs
-            </p>
-          </div>
         </div>
 
         {/* Colonne visuelle */}

@@ -117,10 +117,10 @@ export default function Footer() {
                   +262 692 25 90 07
                 </a>
                 <a
-                  href="mailto:contact@cultureafro.re"
+                  href="mailto:associationcultureafro@gmail.com"
                   className="text-sm text-white/60 transition-colors hover:text-afro-orange"
                 >
-                  contact@cultureafro.re
+                  associationcultureafro@gmail.com
                 </a>
               </div>
             </div>

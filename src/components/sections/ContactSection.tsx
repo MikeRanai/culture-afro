@@ -1,4 +1,7 @@
-import { Mail, MapPin, Clock, Phone, Send } from "lucide-react";
+"use client";
+
+import { Mail, MapPin, Clock, Phone, Send, Loader2, CheckCircle } from "lucide-react";
+import { useState, FormEvent } from "react";
 
 type ContactInfoData = {
   id: string;
@@ -17,7 +20,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 const fallbackInfos: ContactInfoData[] = [
   { id: "1", type: "phone", title: "Téléphone", value: "+262 692 25 90 07", href: "tel:+262692259007" },
-  { id: "2", type: "email", title: "Email", value: "contact@cultureafro.re", href: "mailto:contact@cultureafro.re" },
+  { id: "2", type: "email", title: "Email", value: "associationcultureafro@gmail.com", href: "mailto:associationcultureafro@gmail.com" },
   { id: "3", type: "location", title: "Localisation", value: "Saint-Denis, La Réunion", href: null },
   { id: "4", type: "hours", title: "Disponibilité", value: "Lun – Sam, 9h – 18h", href: null },
 ];
@@ -28,6 +31,41 @@ export default function ContactSection({
   contactInfos?: ContactInfoData[];
 }) {
   const infos = contactInfos && contactInfos.length > 0 ? contactInfos : fallbackInfos;
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+    setErrorMsg("");
+
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      subject: (form.elements.namedItem("subject") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const body = await res.json();
+        throw new Error(body.error || "Erreur lors de l'envoi.");
+      }
+
+      setStatus("sent");
+      form.reset();
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err instanceof Error ? err.message : "Erreur lors de l'envoi.");
+    }
+  }
 
   return (
     <section
@@ -90,8 +128,7 @@ export default function ContactSection({
 
           <div className="rounded-2xl bg-white p-6 shadow-md sm:p-8 lg:col-span-3">
             <form
-              action="#"
-              method="POST"
+              onSubmit={handleSubmit}
               className="flex flex-col gap-5"
               aria-label="Formulaire de contact"
             >
@@ -116,9 +153,35 @@ export default function ContactSection({
                 <textarea id="contact-message" name="message" rows={4} required placeholder="Votre message..." className="min-h-[44px] w-full resize-none rounded-xl border border-afro-dark/10 bg-afro-light px-4 py-3 text-base text-afro-dark placeholder:text-afro-dark/35 transition-colors focus:border-afro-orange focus:outline-none focus:ring-1 focus:ring-afro-orange/30" />
               </div>
 
-              <button type="submit" className="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-full bg-afro-magenta px-8 py-3 font-bold text-white shadow-lg shadow-afro-magenta/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-afro-magenta/30">
-                Envoyer
-                <Send className="h-4 w-4" aria-hidden="true" />
+              {status === "sent" && (
+                <div className="flex items-center gap-2 rounded-xl bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
+                  <CheckCircle className="h-4 w-4" />
+                  Message envoyé avec succès !
+                </div>
+              )}
+
+              {status === "error" && (
+                <div className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                  {errorMsg}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-full bg-afro-magenta px-8 py-3 font-bold text-white shadow-lg shadow-afro-magenta/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-afro-magenta/30 disabled:opacity-60 disabled:hover:scale-100"
+              >
+                {status === "sending" ? (
+                  <>
+                    Envoi en cours...
+                    <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                  </>
+                ) : (
+                  <>
+                    Envoyer
+                    <Send className="h-4 w-4" aria-hidden="true" />
+                  </>
+                )}
               </button>
             </form>
           </div>

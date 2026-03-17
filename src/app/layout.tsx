@@ -21,6 +21,9 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Association Culture Afro | Éducation Capillaire à La Réunion",
   description: "Révélez la beauté de vos boucles naturelles. Éducation capillaire et loisirs créatifs afro à La Réunion.",
+  verification: {
+    google: "QURsNRlnqEzCOs3nJZoycCljXDAhhwo7ZcQLzVnmbDc",
+  },
 };
 
 export default function RootLayout({

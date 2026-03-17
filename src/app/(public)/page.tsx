@@ -8,7 +8,16 @@ import EngagementSection from "@/components/sections/EngagementSection";
 import FAQSection from "@/components/sections/FAQSection";
 import ContactSection from "@/components/sections/ContactSection";
 import SocialSection from "@/components/sections/SocialSection";
+import PartnersSection from "@/components/sections/PartnersSection";
 import Footer from "@/components/layout/Footer";
+import {
+  getActiveTestimonials,
+  getActiveFaqs,
+  getActiveSocialLinks,
+  getActiveStats,
+  getActivePartners,
+  getContactInfos,
+} from "@/lib/actions";
 
 function Navigation() {
   return (
@@ -260,7 +269,17 @@ function HeroSection() {
   );
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [testimonials, faqs, socialLinks, stats, partners, contactInfos] =
+    await Promise.all([
+      getActiveTestimonials(),
+      getActiveFaqs(),
+      getActiveSocialLinks(),
+      getActiveStats(),
+      getActivePartners(),
+      getContactInfos(),
+    ]);
+
   return (
     <>
       <Navigation />
@@ -268,12 +287,13 @@ export default function HomePage() {
         <HeroSection />
         <MissionSection />
         <ActivitiesSection />
-        <StatsSection />
-        <TestimonialsSection />
+        <StatsSection stats={stats} />
+        <TestimonialsSection testimonials={testimonials} />
+        <PartnersSection partners={partners} />
         <EngagementSection />
-        <FAQSection />
-        <ContactSection />
-        <SocialSection />
+        <FAQSection faqs={faqs} />
+        <ContactSection contactInfos={contactInfos} />
+        <SocialSection socialLinks={socialLinks} />
       </main>
       <Footer />
     </>

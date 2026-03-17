@@ -1,0 +1,16 @@
+{
+  "name": "Association Culture Afro",
+  "short_name": "Culture Afro",
+  "description": "Éducation capillaire et loisirs créatifs afro à La Réunion",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffdfa",
+  "theme_color": "#e96a35",
+  "icons": [
+    {
+      "src": "/images/logo-culture-afro.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

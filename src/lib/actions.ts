@@ -3,12 +3,58 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "./prisma";
 import { getSession } from "./auth";
+import { z } from "zod/v4";
 
 async function requireAuth() {
   const session = await getSession();
   if (!session) throw new Error("Non autorisé");
   return session;
 }
+
+// ─── Schemas de validation ──────────────────────────────
+
+const testimonialSchema = z.object({
+  name: z.string().min(1, "Nom requis").max(100).transform((s) => s.trim()),
+  quote: z.string().min(1, "Citation requise").max(1000).transform((s) => s.trim()),
+  image: z.string().min(1, "Image requise").max(500),
+  sortOrder: z.number().int().min(0).optional(),
+});
+
+const faqSchema = z.object({
+  question: z.string().min(1, "Question requise").max(500).transform((s) => s.trim()),
+  answer: z.string().min(1, "Réponse requise").max(2000).transform((s) => s.trim()),
+  sortOrder: z.number().int().min(0).optional(),
+});
+
+const socialLinkSchema = z.object({
+  platform: z.string().min(1, "Plateforme requise").max(50).transform((s) => s.trim()),
+  handle: z.string().min(1, "Handle requis").max(100).transform((s) => s.trim()),
+  url: z.url("URL invalide"),
+  sortOrder: z.number().int().min(0).optional(),
+});
+
+const statSchema = z.object({
+  value: z.string().min(1, "Valeur requise").max(50).transform((s) => s.trim()),
+  label: z.string().min(1, "Label requis").max(100).transform((s) => s.trim()),
+  icon: z.string().max(50).optional(),
+  color: z.string().max(50).optional(),
+  sortOrder: z.number().int().min(0).optional(),
+});
+
+const partnerSchema = z.object({
+  name: z.string().min(1, "Nom requis").max(100).transform((s) => s.trim()),
+  logo: z.string().min(1, "Logo requis").max(500),
+  url: z.string().max(500).optional(),
+  sortOrder: z.number().int().min(0).optional(),
+});
+
+const contactInfoSchema = z.object({
+  type: z.string().min(1, "Type requis").max(50),
+  title: z.string().min(1, "Titre requis").max(100).transform((s) => s.trim()),
+  value: z.string().min(1, "Valeur requise").max(200).transform((s) => s.trim()),
+  href: z.string().max(500).optional(),
+  sortOrder: z.number().int().min(0).optional(),
+});
 
 // ─── Testimonials ────────────────────────────────────────
 export async function getTestimonials() {
@@ -30,7 +76,8 @@ export async function createTestimonial(data: {
   sortOrder?: number;
 }) {
   await requireAuth();
-  await prisma.testimonial.create({ data });
+  const validated = testimonialSchema.parse(data);
+  await prisma.testimonial.create({ data: validated });
   revalidatePath("/admin/temoignages");
   revalidatePath("/");
 }
@@ -40,13 +87,16 @@ export async function updateTestimonial(
   data: { name?: string; quote?: string; image?: string; sortOrder?: number; active?: boolean }
 ) {
   await requireAuth();
-  await prisma.testimonial.update({ where: { id }, data });
+  const partial = testimonialSchema.partial().extend({ active: z.boolean().optional() });
+  const validated = partial.parse(data);
+  await prisma.testimonial.update({ where: { id }, data: validated });
   revalidatePath("/admin/temoignages");
   revalidatePath("/");
 }
 
 export async function deleteTestimonial(id: string) {
   await requireAuth();
+  z.string().uuid().parse(id);
   await prisma.testimonial.delete({ where: { id } });
   revalidatePath("/admin/temoignages");
   revalidatePath("/");
@@ -71,7 +121,8 @@ export async function createFaq(data: {
   sortOrder?: number;
 }) {
   await requireAuth();
-  await prisma.fAQ.create({ data });
+  const validated = faqSchema.parse(data);
+  await prisma.fAQ.create({ data: validated });
   revalidatePath("/admin/faq");
   revalidatePath("/");
 }
@@ -81,13 +132,16 @@ export async function updateFaq(
   data: { question?: string; answer?: string; sortOrder?: number; active?: boolean }
 ) {
   await requireAuth();
-  await prisma.fAQ.update({ where: { id }, data });
+  const partial = faqSchema.partial().extend({ active: z.boolean().optional() });
+  const validated = partial.parse(data);
+  await prisma.fAQ.update({ where: { id }, data: validated });
   revalidatePath("/admin/faq");
   revalidatePath("/");
 }
 
 export async function deleteFaq(id: string) {
   await requireAuth();
+  z.string().uuid().parse(id);
   await prisma.fAQ.delete({ where: { id } });
   revalidatePath("/admin/faq");
   revalidatePath("/");
@@ -113,7 +167,8 @@ export async function createSocialLink(data: {
   sortOrder?: number;
 }) {
   await requireAuth();
-  await prisma.socialLink.create({ data });
+  const validated = socialLinkSchema.parse(data);
+  await prisma.socialLink.create({ data: validated });
   revalidatePath("/admin/reseaux-sociaux");
   revalidatePath("/");
 }
@@ -123,13 +178,16 @@ export async function updateSocialLink(
   data: { platform?: string; handle?: string; url?: string; sortOrder?: number; active?: boolean }
 ) {
   await requireAuth();
-  await prisma.socialLink.update({ where: { id }, data });
+  const partial = socialLinkSchema.partial().extend({ active: z.boolean().optional() });
+  const validated = partial.parse(data);
+  await prisma.socialLink.update({ where: { id }, data: validated });
   revalidatePath("/admin/reseaux-sociaux");
   revalidatePath("/");
 }
 
 export async function deleteSocialLink(id: string) {
   await requireAuth();
+  z.string().uuid().parse(id);
   await prisma.socialLink.delete({ where: { id } });
   revalidatePath("/admin/reseaux-sociaux");
   revalidatePath("/");
@@ -156,7 +214,8 @@ export async function createStat(data: {
   sortOrder?: number;
 }) {
   await requireAuth();
-  await prisma.stat.create({ data });
+  const validated = statSchema.parse(data);
+  await prisma.stat.create({ data: validated });
   revalidatePath("/admin/statistiques");
   revalidatePath("/");
 }
@@ -166,13 +225,16 @@ export async function updateStat(
   data: { value?: string; label?: string; icon?: string; color?: string; sortOrder?: number; active?: boolean }
 ) {
   await requireAuth();
-  await prisma.stat.update({ where: { id }, data });
+  const partial = statSchema.partial().extend({ active: z.boolean().optional() });
+  const validated = partial.parse(data);
+  await prisma.stat.update({ where: { id }, data: validated });
   revalidatePath("/admin/statistiques");
   revalidatePath("/");
 }
 
 export async function deleteStat(id: string) {
   await requireAuth();
+  z.string().uuid().parse(id);
   await prisma.stat.delete({ where: { id } });
   revalidatePath("/admin/statistiques");
   revalidatePath("/");
@@ -198,7 +260,8 @@ export async function createPartner(data: {
   sortOrder?: number;
 }) {
   await requireAuth();
-  await prisma.partner.create({ data });
+  const validated = partnerSchema.parse(data);
+  await prisma.partner.create({ data: validated });
   revalidatePath("/admin/partenaires");
   revalidatePath("/");
 }
@@ -208,13 +271,16 @@ export async function updatePartner(
   data: { name?: string; logo?: string; url?: string | null; sortOrder?: number; active?: boolean }
 ) {
   await requireAuth();
-  await prisma.partner.update({ where: { id }, data });
+  const partial = partnerSchema.partial().extend({ active: z.boolean().optional() });
+  const validated = partial.parse(data);
+  await prisma.partner.update({ where: { id }, data: validated });
   revalidatePath("/admin/partenaires");
   revalidatePath("/");
 }
 
 export async function deletePartner(id: string) {
   await requireAuth();
+  z.string().uuid().parse(id);
   await prisma.partner.delete({ where: { id } });
   revalidatePath("/admin/partenaires");
   revalidatePath("/");
@@ -233,7 +299,8 @@ export async function createContactInfo(data: {
   sortOrder?: number;
 }) {
   await requireAuth();
-  await prisma.contactInfo.create({ data });
+  const validated = contactInfoSchema.parse(data);
+  await prisma.contactInfo.create({ data: validated });
   revalidatePath("/admin/contact");
   revalidatePath("/");
 }
@@ -243,13 +310,16 @@ export async function updateContactInfo(
   data: { type?: string; title?: string; value?: string; href?: string | null; sortOrder?: number }
 ) {
   await requireAuth();
-  await prisma.contactInfo.update({ where: { id }, data });
+  const partial = contactInfoSchema.partial();
+  const validated = partial.parse(data);
+  await prisma.contactInfo.update({ where: { id }, data: validated });
   revalidatePath("/admin/contact");
   revalidatePath("/");
 }
 
 export async function deleteContactInfo(id: string) {
   await requireAuth();
+  z.string().uuid().parse(id);
   await prisma.contactInfo.delete({ where: { id } });
   revalidatePath("/admin/contact");
   revalidatePath("/");

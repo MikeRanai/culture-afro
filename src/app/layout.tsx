@@ -19,6 +19,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.assocultureafro.fr"),
   title: "Association Culture Afro | Éducation Capillaire à La Réunion",
   description: "Révélez la beauté de vos boucles naturelles. Éducation capillaire et loisirs créatifs afro à La Réunion.",
   verification: {
@@ -28,10 +29,11 @@ export const metadata: Metadata = {
     icon: "/images/logo-culture-afro.svg",
     apple: "/images/logo-culture-afro.svg",
   },
+  manifest: "/manifest.webmanifest",
   openGraph: {
     title: "Association Culture Afro | Éducation Capillaire à La Réunion",
     description: "Révélez la beauté de vos boucles naturelles. Éducation capillaire et loisirs créatifs afro à La Réunion.",
-    url: "https://cultureafro.re",
+    url: "https://www.assocultureafro.fr",
     siteName: "Association Culture Afro",
     locale: "fr_FR",
     type: "website",
@@ -59,6 +61,41 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={`${inter.variable} ${playfair.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Association Culture Afro",
+              url: "https://www.assocultureafro.fr",
+              logo: "https://www.assocultureafro.fr/images/logo-culture-afro.svg",
+              description:
+                "Éducation capillaire et loisirs créatifs afro à La Réunion. Association loi 1901 dédiée à l'éducation populaire.",
+              foundingDate: "2017-07-04",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Saint-Denis",
+                addressRegion: "La Réunion",
+                addressCountry: "FR",
+              },
+              contactPoint: {
+                "@type": "ContactPoint",
+                email: "associationcultureafro@gmail.com",
+                telephone: "+262692259007",
+                contactType: "customer service",
+                availableLanguage: "French",
+              },
+              sameAs: [
+                "https://www.instagram.com/assocultureafro/",
+                "https://www.facebook.com/assocultureafro/",
+                "https://www.tiktok.com/@assocultureafro",
+              ],
+            }),
+          }}
+        />
+      </head>
       <body className="font-sans scrollbar-thin overflow-x-hidden">
         {children}
       </body>

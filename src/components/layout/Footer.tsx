@@ -20,6 +20,7 @@ const footerLinks = [
   { label: "Engagement", href: "#benevole" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
+  { label: "Mentions légales", href: "/mentions-legales" },
 ];
 
 const socialLinks = [
@@ -133,11 +134,22 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Association Culture Afro. Tous
             droits réservés.
           </p>
-          <p className="inline-flex items-center gap-1 text-xs text-white/35">
-            Fait avec
-            <Heart className="h-3 w-3 text-afro-magenta" aria-hidden="true" />
-            à La Réunion
-          </p>
+          <div className="flex items-center gap-3 text-xs text-white/35">
+            <p className="inline-flex items-center gap-1">
+              Fait avec
+              <Heart className="h-3 w-3 text-afro-magenta" aria-hidden="true" />
+              à La Réunion
+            </p>
+            <span aria-hidden="true">·</span>
+            <a
+              href="https://mickaelranaivoson.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-afro-orange"
+            >
+              MR Digital Solutions
+            </a>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,14 +1,20 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.assocultureafro.fr'
+  const baseUrl = "https://www.assocultureafro.fr";
 
   return [
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: "weekly",
       priority: 1,
     },
-  ]
+    {
+      url: `${baseUrl}/mentions-legales`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+  ];
 }

@@ -19,6 +19,7 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-inter)'],
         serif: ['var(--font-playfair)'],
+        handwriting: ['var(--font-handwriting)'],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',

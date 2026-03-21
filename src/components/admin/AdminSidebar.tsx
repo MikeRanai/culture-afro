@@ -11,6 +11,8 @@ import {
   BarChart3,
   Handshake,
   Phone,
+  BookOpen,
+  ImageIcon,
   Menu,
   X,
   ChevronLeft,
@@ -24,6 +26,8 @@ const navItems = [
   { label: "FAQ", href: "/admin/faq", icon: HelpCircle },
   { label: "Réseaux sociaux", href: "/admin/reseaux-sociaux", icon: Share2 },
   { label: "Statistiques", href: "/admin/statistiques", icon: BarChart3 },
+  { label: "Annuaire", href: "/admin/annuaire", icon: BookOpen },
+  { label: "Galerie", href: "/admin/galerie", icon: ImageIcon },
   { label: "Partenaires", href: "/admin/partenaires", icon: Handshake },
   { label: "Contact", href: "/admin/contact", icon: Phone },
 ];

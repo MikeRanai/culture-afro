@@ -77,6 +77,31 @@ model AdminUser {
   updatedAt      DateTime  @updatedAt
 }
 
+model GalleryImage {
+  id        String   @id @default(cuid())
+  src       String
+  alt       String
+  legend    String   @default("")
+  tall      Boolean  @default(false)
+  sortOrder Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DirectoryEntry {
+  id          String   @id @default(cuid())
+  name        String
+  description String   @default("")
+  logo        String   @default("")
+  url         String?
+  category    String   @default("salons") // "salons" | "produits"
+  sortOrder   Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model ContactInfo {
   id        String   @id @default(cuid())
   type      String

@@ -4,6 +4,8 @@ import {
   HelpCircle,
   Share2,
   BarChart3,
+  BookOpen,
+  ImageIcon,
   Handshake,
   Phone,
   ArrowRight,
@@ -15,6 +17,8 @@ const sections = [
   { label: "FAQ", href: "/admin/faq", icon: HelpCircle, key: "faqs" as const, color: "bg-afro-magenta/10 text-afro-magenta" },
   { label: "Réseaux sociaux", href: "/admin/reseaux-sociaux", icon: Share2, key: "socialLinks" as const, color: "bg-blue-100 text-blue-600" },
   { label: "Statistiques", href: "/admin/statistiques", icon: BarChart3, key: "stats" as const, color: "bg-green-100 text-green-600" },
+  { label: "Annuaire", href: "/admin/annuaire", icon: BookOpen, key: "directory" as const, color: "bg-teal-100 text-teal-600" },
+  { label: "Galerie", href: "/admin/galerie", icon: ImageIcon, key: "gallery" as const, color: "bg-rose-100 text-rose-600" },
   { label: "Partenaires", href: "/admin/partenaires", icon: Handshake, key: "partners" as const, color: "bg-purple-100 text-purple-600" },
   { label: "Contact", href: "/admin/contact", icon: Phone, key: "contacts" as const, color: "bg-amber-100 text-amber-600" },
 ];

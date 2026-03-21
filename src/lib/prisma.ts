@@ -6,8 +6,13 @@ function makePrisma() {
   return new PrismaClient({ adapter });
 }
 
-const globalForPrisma = globalThis as unknown as { prisma: ReturnType<typeof makePrisma> };
+const globalForPrisma = globalThis as unknown as { prisma: ReturnType<typeof makePrisma> | undefined };
 
-export const prisma = globalForPrisma.prisma || makePrisma();
+// Force re-creation when the client is stale (e.g. after prisma generate adds new models)
+if (globalForPrisma.prisma && !("galleryImage" in globalForPrisma.prisma)) {
+  globalForPrisma.prisma = undefined;
+}
+
+export const prisma = globalForPrisma.prisma ?? makePrisma();
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;

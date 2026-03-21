@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display, Dancing_Script } from "next/font/google";
 import "./globals.css";
 
 // Police pour le corps du texte
@@ -14,7 +14,15 @@ const inter = Inter({
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: '--font-playfair',
-  weight: ['600', '700'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+
+// Police cursive/manuscrite pour les accents éditoriaux
+const dancing = Dancing_Script({
+  subsets: ["latin"],
+  variable: '--font-handwriting',
+  weight: ['400', '700'],
   display: 'swap',
 });
 
@@ -60,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="fr" className={`${inter.variable} ${playfair.variable} ${dancing.variable}`}>
       <head>
         <script
           type="application/ld+json"

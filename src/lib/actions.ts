@@ -49,6 +49,23 @@ const partnerSchema = z.object({
   sortOrder: z.number().int().min(0).optional(),
 });
 
+const galleryImageSchema = z.object({
+  src: z.string().min(1, "Image requise").max(500),
+  alt: z.string().min(1, "Description requise").max(200).transform((s) => s.trim()),
+  legend: z.string().max(200).optional(),
+  tall: z.boolean().optional(),
+  sortOrder: z.number().int().min(0).optional(),
+});
+
+const directoryEntrySchema = z.object({
+  name: z.string().min(1, "Nom requis").max(100).transform((s) => s.trim()),
+  description: z.string().max(200).optional(),
+  logo: z.string().max(500).optional(),
+  url: z.string().max(500).optional(),
+  category: z.enum(["salons", "produits"]).optional(),
+  sortOrder: z.number().int().min(0).optional(),
+});
+
 const contactInfoSchema = z.object({
   type: z.string().min(1, "Type requis").max(50),
   title: z.string().min(1, "Titre requis").max(100).transform((s) => s.trim()),
@@ -288,6 +305,101 @@ export async function deletePartner(id: string) {
   revalidatePath("/");
 }
 
+// ─── Gallery ─────────────────────────────────────────────
+export async function getGalleryImages() {
+  await requireAuth();
+  return prisma.galleryImage.findMany({ orderBy: { sortOrder: "asc" } });
+}
+
+export async function getActiveGalleryImages() {
+  return prisma.galleryImage.findMany({
+    where: { active: true },
+    orderBy: { sortOrder: "asc" },
+  });
+}
+
+export async function createGalleryImage(data: {
+  src: string;
+  alt: string;
+  legend?: string;
+  tall?: boolean;
+  sortOrder?: number;
+}) {
+  await requireAuth();
+  const validated = galleryImageSchema.parse(data);
+  await prisma.galleryImage.create({ data: validated });
+  revalidatePath("/admin/galerie");
+  revalidatePath("/");
+}
+
+export async function updateGalleryImage(
+  id: string,
+  data: { src?: string; alt?: string; legend?: string; tall?: boolean; sortOrder?: number; active?: boolean }
+) {
+  await requireAuth();
+  const partial = galleryImageSchema.partial().extend({ active: z.boolean().optional() });
+  const validated = partial.parse(data);
+  await prisma.galleryImage.update({ where: { id }, data: validated });
+  revalidatePath("/admin/galerie");
+  revalidatePath("/");
+}
+
+export async function deleteGalleryImage(id: string) {
+  await requireAuth();
+  z.string().min(1, "ID requis").parse(id);
+  await prisma.galleryImage.delete({ where: { id } });
+  revalidatePath("/admin/galerie");
+  revalidatePath("/");
+}
+
+// ─── Directory (Annuaire) ────────────────────────────────
+export async function getDirectoryEntries() {
+  await requireAuth();
+  return prisma.directoryEntry.findMany({ orderBy: { sortOrder: "asc" } });
+}
+
+export async function getActiveDirectoryEntries() {
+  return prisma.directoryEntry.findMany({
+    where: { active: true },
+    orderBy: { sortOrder: "asc" },
+  });
+}
+
+export async function createDirectoryEntry(data: {
+  name: string;
+  description?: string;
+  logo?: string;
+  url?: string;
+  category?: string;
+  sortOrder?: number;
+}) {
+  await requireAuth();
+  const validated = directoryEntrySchema.parse(data);
+  await prisma.directoryEntry.create({ data: validated });
+  revalidatePath("/admin/annuaire");
+  revalidatePath("/");
+}
+
+export async function updateDirectoryEntry(
+  id: string,
+  data: { name?: string; description?: string; logo?: string; url?: string | null; category?: string; sortOrder?: number; active?: boolean }
+) {
+  await requireAuth();
+  const partial = directoryEntrySchema.partial().extend({ active: z.boolean().optional() });
+  const validated = partial.parse(data);
+  await prisma.directoryEntry.update({ where: { id }, data: validated });
+  revalidatePath("/admin/annuaire");
+  revalidatePath("/");
+}
+
+export async function deleteDirectoryEntry(id: string) {
+  await requireAuth();
+  z.string().min(1, "ID requis").parse(id);
+  await prisma.directoryEntry.delete({ where: { id } });
+  revalidatePath("/admin/annuaire");
+  revalidatePath("/");
+}
+
 // ─── Contact Info ────────────────────────────────────────
 export async function getContactInfos() {
   return prisma.contactInfo.findMany({ orderBy: { sortOrder: "asc" } });
@@ -330,7 +442,7 @@ export async function deleteContactInfo(id: string) {
 // ─── Dashboard Stats ─────────────────────────────────────
 export async function getDashboardCounts() {
   await requireAuth();
-  const [testimonials, faqs, socialLinks, stats, partners, contacts] =
+  const [testimonials, faqs, socialLinks, stats, partners, contacts, directory, gallery] =
     await Promise.all([
       prisma.testimonial.count(),
       prisma.fAQ.count(),
@@ -338,6 +450,8 @@ export async function getDashboardCounts() {
       prisma.stat.count(),
       prisma.partner.count(),
       prisma.contactInfo.count(),
+      prisma.directoryEntry.count(),
+      prisma.galleryImage.count(),
     ]);
-  return { testimonials, faqs, socialLinks, stats, partners, contacts };
+  return { testimonials, faqs, socialLinks, stats, partners, contacts, directory, gallery };
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Plus, Pencil, Trash2, X, Save, Eye, EyeOff } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Save, Eye, EyeOff, Link } from "lucide-react";
 import {
   createTestimonial,
   updateTestimonial,
@@ -13,11 +13,12 @@ type Item = {
   name: string;
   quote: string;
   image: string;
+  socialUrl: string | null;
   sortOrder: number;
   active: boolean;
 };
 
-const empty = { name: "", quote: "", image: "", sortOrder: 0 };
+const empty = { name: "", quote: "", socialUrl: "", sortOrder: 0 };
 
 export default function TestimonialsAdmin({ items }: { items: Item[] }) {
   const [editing, setEditing] = useState<string | null>(null);
@@ -32,7 +33,7 @@ export default function TestimonialsAdmin({ items }: { items: Item[] }) {
     setForm({
       name: item.name,
       quote: item.quote,
-      image: item.image,
+      socialUrl: item.socialUrl || "",
       sortOrder: item.sortOrder,
     });
   }
@@ -51,10 +52,19 @@ export default function TestimonialsAdmin({ items }: { items: Item[] }) {
 
   function handleSave() {
     startTransition(async () => {
+      const payload = {
+        name: form.name,
+        quote: form.quote,
+        socialUrl: form.socialUrl || undefined,
+        sortOrder: form.sortOrder,
+      };
       if (adding) {
-        await createTestimonial(form);
+        await createTestimonial(payload);
       } else if (editing) {
-        await updateTestimonial(editing, form);
+        await updateTestimonial(editing, {
+          ...payload,
+          socialUrl: form.socialUrl || null,
+        });
       }
       cancel();
     });
@@ -106,27 +116,33 @@ export default function TestimonialsAdmin({ items }: { items: Item[] }) {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-1 block text-sm font-medium text-afro-dark/70">
-                Nom
+                Nom / Identité
               </label>
               <input
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className="min-h-[44px] w-full rounded-xl border border-afro-dark/10 bg-afro-light px-4 text-base text-afro-dark transition-colors focus:border-afro-orange focus:outline-none focus:ring-1 focus:ring-afro-orange/30"
-                placeholder="Prénom du témoin"
+                placeholder="Ex : Une participante, Un père, Une bénévole..."
               />
+              <p className="mt-1 text-xs text-afro-dark/40">
+                Pour un témoignage anonyme : &quot;Un homme&quot;, &quot;Une mère&quot;, &quot;Une participante&quot;...
+              </p>
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-afro-dark/70">
-                Image (URL)
+                Lien réseau social (optionnel)
               </label>
               <input
-                type="text"
-                value={form.image}
-                onChange={(e) => setForm({ ...form, image: e.target.value })}
+                type="url"
+                value={form.socialUrl}
+                onChange={(e) => setForm({ ...form, socialUrl: e.target.value })}
                 className="min-h-[44px] w-full rounded-xl border border-afro-dark/10 bg-afro-light px-4 text-base text-afro-dark transition-colors focus:border-afro-orange focus:outline-none focus:ring-1 focus:ring-afro-orange/30"
-                placeholder="/images/testimonial-x.jpg"
+                placeholder="https://instagram.com/..."
               />
+              <p className="mt-1 text-xs text-afro-dark/40">
+                Instagram, Facebook, TikTok... Laisser vide si anonyme.
+              </p>
             </div>
             <div className="sm:col-span-2">
               <label className="mb-1 block text-sm font-medium text-afro-dark/70">
@@ -197,21 +213,24 @@ export default function TestimonialsAdmin({ items }: { items: Item[] }) {
               }`}
             >
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
-                {/* Image preview */}
-                {item.image && (
-                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-afro-dark/5">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                )}
                 {/* Content */}
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-bold text-afro-dark">
-                    {item.name}
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-bold text-afro-dark">
+                      {item.name}
+                    </p>
+                    {item.socialUrl && (
+                      <a
+                        href={item.socialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-afro-orange hover:text-afro-orange/80"
+                        aria-label="Voir le profil"
+                      >
+                        <Link className="h-3.5 w-3.5" />
+                      </a>
+                    )}
+                  </div>
                   <p className="mt-1 line-clamp-2 text-sm text-afro-dark/60">
                     {item.quote}
                   </p>

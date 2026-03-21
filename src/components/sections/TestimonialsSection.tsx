@@ -1,10 +1,11 @@
-import { Quote } from "lucide-react";
+import { Quote, ExternalLink } from "lucide-react";
 
 type Testimonial = {
   id: string;
   name: string;
   quote: string;
   image: string;
+  socialUrl?: string | null;
 };
 
 const fallbackTestimonials: Testimonial[] = [
@@ -83,9 +84,22 @@ export default function TestimonialsSection({
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
 
-                <p className={`mt-5 text-sm font-bold ${color.text}`}>
-                  — {t.name}
-                </p>
+                <div className="mt-5 flex items-center gap-2">
+                  <p className={`text-sm font-bold ${color.text}`}>
+                    — {t.name}
+                  </p>
+                  {t.socialUrl && (
+                    <a
+                      href={t.socialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`${color.text} opacity-60 transition-opacity hover:opacity-100`}
+                      aria-label={`Profil de ${t.name}`}
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </a>
+                  )}
+                </div>
               </article>
             );
           })}

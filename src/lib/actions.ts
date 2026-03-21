@@ -16,7 +16,8 @@ async function requireAuth() {
 const testimonialSchema = z.object({
   name: z.string().min(1, "Nom requis").max(100).transform((s) => s.trim()),
   quote: z.string().min(1, "Citation requise").max(1000).transform((s) => s.trim()),
-  image: z.string().min(1, "Image requise").max(500),
+  image: z.string().max(500).optional(),
+  socialUrl: z.string().max(500).optional(),
   sortOrder: z.number().int().min(0).optional(),
 });
 
@@ -72,7 +73,8 @@ export async function getActiveTestimonials() {
 export async function createTestimonial(data: {
   name: string;
   quote: string;
-  image: string;
+  image?: string;
+  socialUrl?: string;
   sortOrder?: number;
 }) {
   await requireAuth();
@@ -84,7 +86,7 @@ export async function createTestimonial(data: {
 
 export async function updateTestimonial(
   id: string,
-  data: { name?: string; quote?: string; image?: string; sortOrder?: number; active?: boolean }
+  data: { name?: string; quote?: string; image?: string; socialUrl?: string | null; sortOrder?: number; active?: boolean }
 ) {
   await requireAuth();
   const partial = testimonialSchema.partial().extend({ active: z.boolean().optional() });

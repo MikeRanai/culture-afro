@@ -8,7 +8,6 @@ import EngagementSection from "@/components/sections/EngagementSection";
 import FAQSection from "@/components/sections/FAQSection";
 import ContactSection from "@/components/sections/ContactSection";
 import SocialSection from "@/components/sections/SocialSection";
-import ProgrammeSection from "@/components/sections/ProgrammeSection";
 import PartnersSection from "@/components/sections/PartnersSection";
 import Footer from "@/components/layout/Footer";
 import {
@@ -270,7 +269,6 @@ export default async function HomePage() {
         <ActivitiesSection />
         <StatsSection stats={stats} />
         <TestimonialsSection testimonials={testimonials} />
-        <ProgrammeSection />
         <PartnersSection partners={partners} />
         <EngagementSection />
         <FAQSection faqs={faqs} />

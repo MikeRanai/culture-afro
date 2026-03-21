@@ -13,6 +13,10 @@ import {
   Clock,
   Calendar,
   Leaf,
+  Hand,
+  MessageCircle,
+  Sparkles,
+  Users,
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
@@ -38,7 +42,7 @@ const activities = [
       objective:
         "Vous accompagner avec bienveillance pour mieux comprendre vos cheveux et apprendre à les entretenir en toute autonomie.",
       closing:
-        "Ensemble, valorisons nos cheveux frisés, crépus et bouclés.",
+        "Rejoins-nous, ensemble valorisons nos cheveux frisés, crépus, bouclés.",
       details: [
         { icon: MapPin, label: "BARREF – Château Morange, Camélias" },
         { icon: Clock, label: "Matin : 9h – 12h (sur inscription) · Après-midi : 14h – 18h (portes ouvertes)" },
@@ -50,6 +54,24 @@ const activities = [
         "Coaching confiance en soi capillaire",
         "Produits capillaires, accessoires et matériel mis à disposition",
       ],
+      gallery: [
+        "/images/prog1.webp",
+        "/images/prog2.webp",
+        "/images/prog3.webp",
+        "/images/prog4.webp",
+      ],
+      programme: {
+        matin: [
+          { icon: "Hand", title: "Accueil & Permanence", description: "Échanger, témoigner et partager vos expériences capillaires." },
+          { icon: "Scissors", title: "Atelier Capillaire en Intimité", description: "Un moment privilégié pour prendre soin de vos cheveux en toute confidentialité." },
+          { icon: "Sparkles", title: "Ateliers Boucles & Tresses", description: "Apprenez et perfectionnez vos techniques sur cheveux texturés." },
+        ],
+        apresMidi: [
+          { icon: "Users", title: "Activités Artistiques", description: "Diverses activités créatives ouvertes à toutes et tous." },
+          { icon: "MessageCircle", title: "Échange & Diagnostic", description: "Diagnostic capillaire personnalisé et conseils adaptés à vos besoins." },
+          { icon: "Scissors", title: "Atelier Capillaire Collectif", description: "Partagez et apprenez ensemble dans une ambiance conviviale." },
+        ],
+      },
     },
   },
   {
@@ -91,6 +113,10 @@ const activities = [
 
 type ModalContent = NonNullable<(typeof activities)[0]["modalContent"]>;
 
+const programmeIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Hand, Scissors, Sparkles, Users, MessageCircle,
+};
+
 function ActivityModal({
   content,
   title,
@@ -128,10 +154,27 @@ function ActivityModal({
         <button
           onClick={onClose}
           aria-label="Fermer"
-          className="absolute right-3 top-4 flex h-9 w-9 items-center justify-center rounded-full text-afro-dark/50 transition-colors hover:bg-afro-dark/5 hover:text-afro-dark"
+          className="absolute right-3 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-afro-dark/50 transition-colors hover:bg-afro-dark/5 hover:text-afro-dark"
         >
           <X className="h-5 w-5" />
         </button>
+
+        {/* Galerie photos */}
+        {content.gallery && content.gallery.length > 0 && (
+          <div className="grid grid-cols-2 gap-1 p-1 pt-0">
+            {content.gallery.map((src, i) => (
+              <div key={src} className="relative h-32 overflow-hidden first:rounded-none last:rounded-none">
+                <Image
+                  src={src}
+                  alt={`Programme BARREF ${i + 1}`}
+                  fill
+                  sizes="250px"
+                  className="object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Contenu */}
         <div className="p-6 pt-5 sm:p-8 sm:pt-6">
@@ -166,6 +209,53 @@ function ActivityModal({
               </div>
             ))}
           </div>
+
+          {/* Programme détaillé */}
+          {content.programme && (
+            <div className="mb-5 space-y-4">
+              {/* Matin */}
+              <div className="rounded-xl border border-afro-orange/15 bg-afro-orange/5 p-4">
+                <p className="mb-3 text-sm font-bold text-afro-orange">
+                  Matin — 9h à 12h · Sur inscription
+                </p>
+                <div className="space-y-2.5">
+                  {content.programme.matin.map((item) => {
+                    const Icon = programmeIconMap[item.icon] || Scissors;
+                    return (
+                      <div key={item.title} className="flex items-start gap-2.5">
+                        <Icon className="mt-0.5 h-4 w-4 shrink-0 text-afro-orange" aria-hidden="true" />
+                        <div>
+                          <p className="text-sm font-semibold text-afro-dark">{item.title}</p>
+                          <p className="text-xs text-afro-dark/60">{item.description}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Après-midi */}
+              <div className="rounded-xl border border-afro-magenta/15 bg-afro-magenta/5 p-4">
+                <p className="mb-3 text-sm font-bold text-afro-magenta">
+                  Après-midi — 14h à 18h · Portes ouvertes
+                </p>
+                <div className="space-y-2.5">
+                  {content.programme.apresMidi.map((item) => {
+                    const Icon = programmeIconMap[item.icon] || Scissors;
+                    return (
+                      <div key={item.title} className="flex items-start gap-2.5">
+                        <Icon className="mt-0.5 h-4 w-4 shrink-0 text-afro-magenta" aria-hidden="true" />
+                        <div>
+                          <p className="text-sm font-semibold text-afro-dark">{item.title}</p>
+                          <p className="text-xs text-afro-dark/60">{item.description}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Extras */}
           {content.extras && content.extras.length > 0 && (

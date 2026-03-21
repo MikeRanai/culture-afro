@@ -26,7 +26,7 @@ export default function StatsSection({ stats }: { stats?: StatData[] }) {
     <section aria-label="Chiffres clés" className="py-12 md:py-16">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="rounded-2xl bg-afro-dark px-6 py-10 shadow-xl sm:px-10 md:py-14">
-          <div className="grid grid-cols-2 gap-8 lg:grid-cols-4 lg:gap-6">
+          <div className={`grid gap-8 lg:gap-6 ${data.length <= 2 ? "grid-cols-1 sm:grid-cols-2 mx-auto max-w-2xl" : "grid-cols-2 lg:grid-cols-4"}`}>
             {data.map((s) => {
               const Icon = iconMap[s.icon] || Users;
               const colorClass = s.color === "magenta" ? "text-afro-magenta" : "text-afro-orange";

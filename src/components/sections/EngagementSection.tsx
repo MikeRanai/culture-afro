@@ -151,7 +151,12 @@ export default function EngagementSection() {
                 className="group/btn inline-flex min-h-[44px] items-center gap-2 rounded-full bg-afro-magenta px-6 py-3 text-sm font-bold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-afro-magenta/30"
               >
                 S&apos;adhérer sur HelloAsso
-                <ExternalLink className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5" aria-hidden="true" />
+                <img
+                  src="/images/logo-helloasso1.svg"
+                  alt=""
+                  className="h-5 w-auto brightness-0 invert"
+                  aria-hidden="true"
+                />
               </a>
             </div>
           </div>
@@ -187,6 +192,12 @@ export default function EngagementSection() {
               >
                 <HandHeart className="h-5 w-5" aria-hidden="true" />
                 Faire un don
+                <img
+                  src="/images/logo-helloasso1.svg"
+                  alt=""
+                  className="h-5 w-auto brightness-0 invert"
+                  aria-hidden="true"
+                />
               </a>
             </div>
           </div>

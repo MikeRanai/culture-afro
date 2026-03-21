@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Quote } from "lucide-react";
 
 type Testimonial = {
   id: string;
@@ -7,32 +7,31 @@ type Testimonial = {
   image: string;
 };
 
-// Fallback data used when DB is empty
 const fallbackTestimonials: Testimonial[] = [
   {
     id: "1",
-    name: "Amandine",
-    quote: "Ma mère se lisse les cheveux et, enfant, j'ai toujours eu envie de faire comme elle. Grâce aux ateliers, j'ai appris à aimer mes boucles naturelles.",
-    image: "/images/testimonial-1.jpg",
+    name: "Un homme",
+    quote: "C'est important ce que vous faites car on minimise cette partie de nous. Moi j'ai pris la décision de laisser mes cheveux longs et ça dérange. Grâce à vous, je vois que je peux assumer mon choix aujourd'hui.",
+    image: "",
   },
   {
     id: "2",
-    name: "Fatou",
-    quote: "J'ai été adoptée et je n'ai reçu aucune transmission autour de la culture de mes cheveux crépus. Ici, j'ai enfin trouvé un espace pour apprendre.",
-    image: "/images/testimonial-2.jpg",
+    name: "Une femme",
+    quote: "Je suis issue d'une famille malbar et je suis la seule aux cheveux frisés. J'ai assumé mon identité capillaire et le fait que je sois unique.",
+    image: "",
   },
   {
     id: "3",
-    name: "Michel",
-    quote: "Dans ma famille, le défrisage était la seule option connue. Aujourd'hui, j'ai envie de montrer à mes enfants qu'on peut entretenir ses cheveux naturels… et les aimer.",
-    image: "/images/testimonial-3.jpg",
+    name: "Une mère",
+    quote: "Ma fille n'assume pas ses cheveux en public, alors merci à vous d'avoir mis en place une matinée pour qu'on puisse venir et apprendre en toute intimité.",
+    image: "",
   },
-  {
-    id: "4",
-    name: "Joseph",
-    quote: "J'ai découvert une communauté soudée et bienveillante. Chaque événement est un moment de partage et de fierté inoubliable.",
-    image: "/images/testimonial-4.jpg",
-  },
+];
+
+const accentColors = [
+  { bg: "bg-afro-orange/10", text: "text-afro-orange", border: "border-afro-orange/20" },
+  { bg: "bg-afro-magenta/10", text: "text-afro-magenta", border: "border-afro-magenta/20" },
+  { bg: "bg-afro-orange/10", text: "text-afro-orange", border: "border-afro-orange/20" },
 ];
 
 export default function TestimonialsSection({
@@ -48,48 +47,48 @@ export default function TestimonialsSection({
       aria-labelledby="testimonials-title"
       className="py-16 md:py-24"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10 text-center md:mb-14">
           <span className="mb-3 inline-block rounded-full bg-afro-magenta/10 px-4 py-1 text-xs font-bold uppercase tracking-[0.15em] text-afro-magenta">
             Vos témoignages
           </span>
           <h2
             id="testimonials-title"
-            className="font-sans text-sm font-bold uppercase tracking-[0.2em] text-afro-dark md:text-base"
+            className="font-serif text-3xl font-bold text-afro-dark sm:text-4xl"
           >
-            Impact &amp; Témoignages
+            Ils &amp; elles témoignent
           </h2>
+          <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-afro-dark/60">
+            Des mots recueillis lors de nos ateliers, qui rappellent pourquoi
+            notre action compte.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {data.map((t) => (
-            <article
-              key={t.id}
-              className="group rounded-2xl bg-white p-4 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-            >
-              <div className="relative h-36 w-full overflow-hidden rounded-xl">
-                <Image
-                  src={t.image}
-                  alt={`Portrait de ${t.name}, membre de l'association`}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {data.map((t, i) => {
+            const color = accentColors[i % accentColors.length];
+            return (
+              <article
+                key={t.id}
+                className={`group relative rounded-2xl border ${color.border} bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-8`}
+              >
+                {/* Icône citation */}
                 <div
-                  aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-t from-afro-dark/20 to-transparent"
-                />
-              </div>
+                  className={`mb-4 flex h-10 w-10 items-center justify-center rounded-xl ${color.bg}`}
+                >
+                  <Quote className={`h-5 w-5 ${color.text}`} aria-hidden="true" />
+                </div>
 
-              <blockquote className="mt-4 text-sm italic leading-relaxed text-afro-dark/80">
-                &ldquo;{t.quote}&rdquo;
-              </blockquote>
+                <blockquote className="text-sm leading-relaxed text-afro-dark/75 italic">
+                  &ldquo;{t.quote}&rdquo;
+                </blockquote>
 
-              <p className="mt-3 text-sm font-bold text-afro-orange">
-                — {t.name}
-              </p>
-            </article>
-          ))}
+                <p className={`mt-5 text-sm font-bold ${color.text}`}>
+                  — {t.name}
+                </p>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

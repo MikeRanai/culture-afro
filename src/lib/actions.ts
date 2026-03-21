@@ -17,7 +17,7 @@ const testimonialSchema = z.object({
   name: z.string().min(1, "Nom requis").max(100).transform((s) => s.trim()),
   quote: z.string().min(1, "Citation requise").max(1000).transform((s) => s.trim()),
   image: z.string().max(500).optional(),
-  socialUrl: z.string().max(500).optional(),
+  socialUrl: z.string().max(500).nullable().optional(),
   sortOrder: z.number().int().min(0).optional(),
 });
 

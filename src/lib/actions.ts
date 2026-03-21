@@ -98,7 +98,7 @@ export async function updateTestimonial(
 
 export async function deleteTestimonial(id: string) {
   await requireAuth();
-  z.string().uuid().parse(id);
+  z.string().min(1, "ID requis").parse(id);
   await prisma.testimonial.delete({ where: { id } });
   revalidatePath("/admin/temoignages");
   revalidatePath("/");
@@ -143,7 +143,7 @@ export async function updateFaq(
 
 export async function deleteFaq(id: string) {
   await requireAuth();
-  z.string().uuid().parse(id);
+  z.string().min(1, "ID requis").parse(id);
   await prisma.fAQ.delete({ where: { id } });
   revalidatePath("/admin/faq");
   revalidatePath("/");
@@ -189,7 +189,7 @@ export async function updateSocialLink(
 
 export async function deleteSocialLink(id: string) {
   await requireAuth();
-  z.string().uuid().parse(id);
+  z.string().min(1, "ID requis").parse(id);
   await prisma.socialLink.delete({ where: { id } });
   revalidatePath("/admin/reseaux-sociaux");
   revalidatePath("/");
@@ -236,7 +236,7 @@ export async function updateStat(
 
 export async function deleteStat(id: string) {
   await requireAuth();
-  z.string().uuid().parse(id);
+  z.string().min(1, "ID requis").parse(id);
   await prisma.stat.delete({ where: { id } });
   revalidatePath("/admin/statistiques");
   revalidatePath("/");
@@ -282,7 +282,7 @@ export async function updatePartner(
 
 export async function deletePartner(id: string) {
   await requireAuth();
-  z.string().uuid().parse(id);
+  z.string().min(1, "ID requis").parse(id);
   await prisma.partner.delete({ where: { id } });
   revalidatePath("/admin/partenaires");
   revalidatePath("/");
@@ -321,7 +321,7 @@ export async function updateContactInfo(
 
 export async function deleteContactInfo(id: string) {
   await requireAuth();
-  z.string().uuid().parse(id);
+  z.string().min(1, "ID requis").parse(id);
   await prisma.contactInfo.delete({ where: { id } });
   revalidatePath("/admin/contact");
   revalidatePath("/");

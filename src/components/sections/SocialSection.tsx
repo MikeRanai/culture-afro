@@ -58,9 +58,9 @@ export default function SocialSection({
           Suivez-nous
         </h2>
         <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-afro-dark/60">
-          Retrouvez nos ateliers, nos événements sur le terrain — festivals,
-          pop-up, journées découvertes — et toute l&apos;actualité de
-          l&apos;association sur nos réseaux.
+          Abonnez-vous pour être tenu·e au courant de tous nos événements
+          à venir — ateliers BarreF, festivals, pop-up — et ne rien
+          manquer de l&apos;actualité de l&apos;association.
         </p>
 
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">

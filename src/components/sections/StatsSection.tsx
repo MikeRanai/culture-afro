@@ -13,10 +13,10 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 const fallbackStats: StatData[] = [
-  { id: "1", icon: "Users", value: "150+", label: "Membres actifs", color: "orange" },
-  { id: "2", icon: "CalendarDays", value: "40+", label: "Ateliers gratuits organisés", color: "magenta" },
+  { id: "1", icon: "Heart", value: "100%", label: "Ateliers gratuits et accessibles", color: "orange" },
+  { id: "2", icon: "CalendarDays", value: "40+", label: "Ateliers organisés", color: "magenta" },
   { id: "3", icon: "MapPin", value: "Tout le territoire", label: "Festivals, pop-up, quartiers", color: "orange" },
-  { id: "4", icon: "Award", value: "2022", label: "Année de création", color: "magenta" },
+  { id: "4", icon: "Star", value: "Chaque mois", label: "Ateliers BarreF le 1er samedi", color: "magenta" },
 ];
 
 export default function StatsSection({ stats }: { stats?: StatData[] }) {

@@ -22,7 +22,6 @@ const fallbackInfos: ContactInfoData[] = [
   { id: "1", type: "phone", title: "Téléphone", value: "+262 692 25 90 07", href: "tel:+262692259007" },
   { id: "2", type: "email", title: "Email", value: "associationcultureafro@gmail.com", href: "mailto:associationcultureafro@gmail.com" },
   { id: "3", type: "location", title: "Localisation", value: "Saint-Denis, La Réunion", href: null },
-  { id: "4", type: "hours", title: "Disponibilité", value: "Lun – Sam, 9h – 18h", href: null },
 ];
 
 export default function ContactSection({

@@ -5,12 +5,13 @@ type FAQ = {
 };
 
 const fallbackFaqs: FAQ[] = [
-  { id: "1", question: "Les ateliers sont-ils ouverts à tous ?", answer: "Oui ! Nos ateliers sont ouverts à toutes et tous, du plus petit à l'adulte, quel que soit votre type de cheveux ou votre niveau de connaissance." },
+  { id: "1", question: "Les ateliers sont-ils ouverts à tous ?", answer: "Oui ! Nos interventions associatives sont gratuites et ouvertes à toutes et tous, du plus petit à l'adulte, quel que soit votre type de cheveux ou votre niveau de connaissance." },
   { id: "2", question: "Combien coûte la participation aux ateliers ?", answer: "Nos ateliers capillaires sont 100% gratuits. Les produits capillaires, accessoires et matériel sont mis à disposition sur place." },
-  { id: "3", question: "Où et quand se déroulent les ateliers capillaires ?", answer: "Les ateliers ont lieu à la BARRE F – Château Morange, Saint-Denis, chaque 1er samedi du mois de 9h à 12h. Sur inscription uniquement, places limitées." },
-  { id: "4", question: "Où peut-on vous retrouver en dehors des ateliers ?", answer: "On est présentes sur tout le territoire : festivals, pop-up, journées découvertes, boutiques solidaires, dans les quartiers… Partout où l'échange et le partage ont leur place. Suivez-nous sur nos réseaux pour les prochaines dates !" },
-  { id: "5", question: "Comment devenir bénévole ?", answer: "Il suffit de remplir le formulaire dans la section Engagement ci-dessus, ou de nous contacter directement par email ou sur nos réseaux sociaux. On vous accueille avec plaisir !" },
-  { id: "6", question: "Faut-il être membre pour participer ?", answer: "Non, vous pouvez assister à un premier atelier sans adhésion. Si l'aventure vous plaît, l'adhésion annuelle est proposée à un tarif accessible." },
+  { id: "3", question: "Où et quand se déroulent les ateliers capillaires ?", answer: "Les ateliers BarreF ont lieu au Château Morange, Camélias, chaque 1er samedi du mois. Le matin de 9h à 12h sur inscription (places limitées) et l'après-midi de 14h à 18h en portes ouvertes." },
+  { id: "4", question: "Où peut-on vous retrouver en dehors des ateliers ?", answer: "On est présentes sur tout le territoire : festivals, pop-up, journées découvertes, dans les quartiers… Suivez-nous sur nos réseaux sociaux pour être tenu·e au courant des prochains événements !" },
+  { id: "5", question: "Comment devenir bénévole ?", answer: "Contactez-nous par email à associationcultureafro@gmail.com ou sur nos réseaux sociaux. Coiffeuses ou passionnées, venez apprendre sur les textures de cheveux, partager vos compétences et échanger avec le public !" },
+  { id: "6", question: "Quels sont les avantages de l'adhésion ?", answer: "En tant qu'adhérent·e, l'association soutient vos projets sociaux ou commerciaux, offre de la visibilité à votre activité, et vous êtes informé·e en priorité des événements. L'adhésion se fait via notre page HelloAsso." },
+  { id: "7", question: "Comment soutenir l'association ?", answer: "Vous pouvez devenir bénévole, adhérer à l'association, ou faire un don via notre page HelloAsso. Chaque geste compte pour maintenir nos ateliers gratuits !" },
 ];
 
 export default function FAQSection({ faqs }: { faqs?: FAQ[] }) {

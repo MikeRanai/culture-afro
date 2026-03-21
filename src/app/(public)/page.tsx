@@ -66,7 +66,7 @@ function Navigation() {
           className="hidden min-h-[44px] items-center gap-2 rounded-full bg-afro-magenta px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-afro-magenta/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-afro-magenta/30 md:inline-flex"
         >
           <Heart className="h-4 w-4" />
-          Devenir Bénévole
+          Nous rejoindre
         </a>
 
         {/* Menu burger mobile */}
@@ -122,7 +122,7 @@ function MobileMenu() {
             className="mt-2 flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-afro-magenta px-6 py-3 text-center font-semibold text-white shadow-lg shadow-afro-magenta/25"
           >
             <Heart className="h-4 w-4" />
-            Devenir Bénévole
+            Nous rejoindre
           </a>
         </div>
       </div>

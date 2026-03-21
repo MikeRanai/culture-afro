@@ -17,7 +17,7 @@ const footerLinks = [
   { label: "Mission", href: "#mission" },
   { label: "Ateliers", href: "#ateliers" },
   { label: "Témoignages", href: "#temoignages" },
-  { label: "Engagement", href: "#benevole" },
+  { label: "Nous rejoindre", href: "#benevole" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
   { label: "Mentions légales", href: "/mentions-legales" },

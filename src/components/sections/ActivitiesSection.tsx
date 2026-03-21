@@ -23,7 +23,7 @@ const activities = [
   {
     title: "Ateliers Éducation Capillaire",
     description:
-      "Apprenez à comprendre, entretenir et sublimer vos cheveux texturés. Nos ateliers pratiques vous guident vers une routine adaptée à votre nature de cheveux.",
+      "Développez votre autonomie grâce au coaching en confiance en soi capillaire. Apprenez à comprendre, entretenir et sublimer vos cheveux texturés (bouclés, frisés, ondulés, crépus).",
     image: "/images/education-hair.webp",
     alt: "Atelier d'éducation capillaire avec démonstration de soins pour cheveux texturés",
     accent: "from-afro-orange to-afro-orange/70",
@@ -41,12 +41,13 @@ const activities = [
         "Ensemble, valorisons nos cheveux frisés, crépus et bouclés.",
       details: [
         { icon: MapPin, label: "BARREF – Château Morange, Camélias" },
-        { icon: Clock, label: "De 9h à 12h" },
-        { icon: Calendar, label: "Chaque 1er samedi matin du mois" },
+        { icon: Clock, label: "Matin : 9h – 12h (sur inscription) · Après-midi : 14h – 18h (portes ouvertes)" },
+        { icon: Calendar, label: "Chaque 1er samedi du mois" },
       ],
-      note: "Sur inscription uniquement (places limitées).",
+      note: "Matin sur inscription (places limitées) · Après-midi en accès libre.",
       extras: [
         "Ateliers 100% gratuits",
+        "Coaching confiance en soi capillaire",
         "Produits capillaires, accessoires et matériel mis à disposition",
       ],
     },

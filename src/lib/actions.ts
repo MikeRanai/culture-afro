@@ -77,6 +77,14 @@ const heroBannerSchema = z.object({
   decorWord: z.string().max(50).optional(),
 });
 
+const poleSchema = z.object({
+  surtitre: z.string().max(100).optional(),
+  titre: z.string().min(1, "Titre requis").max(200).transform((s) => s.trim()),
+  description: z.string().min(1, "Description requise").max(2000).transform((s) => s.trim()),
+  image: z.string().max(500).optional(),
+  sortOrder: z.number().int().min(0).optional(),
+});
+
 const contactInfoSchema = z.object({
   type: z.string().min(1, "Type requis").max(50),
   title: z.string().min(1, "Titre requis").max(100).transform((s) => s.trim()),
@@ -450,6 +458,53 @@ export async function deleteContactInfo(id: string) {
   revalidatePath("/");
 }
 
+// ─── Poles ──────────────────────────────────────────────
+export async function getPoles() {
+  await requireAuth();
+  return prisma.pole.findMany({ orderBy: { sortOrder: "asc" } });
+}
+
+export async function getActivePoles() {
+  return prisma.pole.findMany({
+    where: { active: true },
+    orderBy: { sortOrder: "asc" },
+  });
+}
+
+export async function createPole(data: {
+  surtitre?: string;
+  titre: string;
+  description: string;
+  image?: string;
+  sortOrder?: number;
+}) {
+  await requireAuth();
+  const validated = poleSchema.parse(data);
+  await prisma.pole.create({ data: validated });
+  revalidatePath("/admin/poles");
+  revalidatePath("/");
+}
+
+export async function updatePole(
+  id: string,
+  data: { surtitre?: string; titre?: string; description?: string; image?: string; sortOrder?: number; active?: boolean }
+) {
+  await requireAuth();
+  const partial = poleSchema.partial().extend({ active: z.boolean().optional() });
+  const validated = partial.parse(data);
+  await prisma.pole.update({ where: { id }, data: validated });
+  revalidatePath("/admin/poles");
+  revalidatePath("/");
+}
+
+export async function deletePole(id: string) {
+  await requireAuth();
+  z.string().min(1, "ID requis").parse(id);
+  await prisma.pole.delete({ where: { id } });
+  revalidatePath("/admin/poles");
+  revalidatePath("/");
+}
+
 // ─── Hero Banner ────────────────────────────────────────
 export async function getHeroBanner() {
   return prisma.heroBanner.findFirst();
@@ -480,7 +535,7 @@ export async function upsertHeroBanner(data: {
 // ─── Dashboard Stats ─────────────────────────────────────
 export async function getDashboardCounts() {
   await requireAuth();
-  const [testimonials, faqs, socialLinks, stats, partners, contacts, directory, gallery] =
+  const [testimonials, faqs, socialLinks, stats, partners, contacts, directory, gallery, poles] =
     await Promise.all([
       prisma.testimonial.count(),
       prisma.fAQ.count(),
@@ -490,6 +545,7 @@ export async function getDashboardCounts() {
       prisma.contactInfo.count(),
       prisma.directoryEntry.count(),
       prisma.galleryImage.count(),
+      prisma.pole.count(),
     ]);
-  return { testimonials, faqs, socialLinks, stats, partners, contacts, directory, gallery };
+  return { testimonials, faqs, socialLinks, stats, partners, contacts, directory, gallery, poles };
 }

@@ -18,6 +18,7 @@ import {
   getActiveDirectoryEntries,
   getActiveGalleryImages,
   getHeroBanner,
+  getActivePoles,
 } from "@/lib/actions";
 
 /* ─────────────────────────────────────────────
@@ -131,7 +132,7 @@ function HeroSection({
 /* ─────────────────────────────────────────────
    PÔLES D'ACTION — Asymétrique, éditorial
    ───────────────────────────────────────────── */
-const poles = [
+const fallbackPoles = [
   {
     surtitre: "Pôle 01",
     titre: "Ateliers capillaires",
@@ -155,7 +156,10 @@ const poles = [
   },
 ];
 
-function PolesSection() {
+type PoleData = { surtitre: string; titre: string; description: string; image: string };
+
+function PolesSection({ poles: polesProp }: { poles?: PoleData[] }) {
+  const poles = polesProp && polesProp.length > 0 ? polesProp : fallbackPoles;
   return (
     <section id="poles" className="bg-[#fcfaf5]" aria-labelledby="poles-title">
       {/* En-tête de section */}
@@ -536,7 +540,7 @@ function FooterEditorial({ socialLinks, contactInfos }: { socialLinks: SocialLin
    PAGE PRINCIPALE
    ───────────────────────────────────────────── */
 export default async function HomePage() {
-  const [testimonials, faqs, partners, stats, socialLinks, contactInfos, directoryEntries, galleryImages, heroBanner] = await Promise.all([
+  const [testimonials, faqs, partners, stats, socialLinks, contactInfos, directoryEntries, galleryImages, heroBanner, poles] = await Promise.all([
     getActiveTestimonials(),
     getActiveFaqs(),
     getActivePartners(),
@@ -546,6 +550,7 @@ export default async function HomePage() {
     getActiveDirectoryEntries(),
     getActiveGalleryImages(),
     getHeroBanner(),
+    getActivePoles(),
   ]);
 
   return (
@@ -561,7 +566,7 @@ export default async function HomePage() {
           </ScrollReveal>
         </div>
 
-        <PolesSection />
+        <PolesSection poles={poles} />
         <DirectorySection entries={directoryEntries} />
         <GalerieSection images={galleryImages} />
 

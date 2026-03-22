@@ -116,6 +116,18 @@ model HeroBanner {
   updatedAt   DateTime @updatedAt
 }
 
+model Pole {
+  id          String   @id @default(cuid())
+  surtitre    String   @default("")
+  titre       String
+  description String
+  image       String   @default("")
+  sortOrder   Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model ContactInfo {
   id        String   @id @default(cuid())
   type      String

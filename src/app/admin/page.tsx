@@ -8,11 +8,13 @@ import {
   ImageIcon,
   Handshake,
   Phone,
+  Layers,
   ArrowRight,
 } from "lucide-react";
 import { getDashboardCounts } from "@/lib/actions";
 
 const sections = [
+  { label: "Pôles", href: "/admin/poles", icon: Layers, key: "poles" as const, color: "bg-indigo-100 text-indigo-600" },
   { label: "Témoignages", href: "/admin/temoignages", icon: MessageSquareQuote, key: "testimonials" as const, color: "bg-afro-orange/10 text-afro-orange" },
   { label: "FAQ", href: "/admin/faq", icon: HelpCircle, key: "faqs" as const, color: "bg-afro-magenta/10 text-afro-magenta" },
   { label: "Réseaux sociaux", href: "/admin/reseaux-sociaux", icon: Share2, key: "socialLinks" as const, color: "bg-blue-100 text-blue-600" },

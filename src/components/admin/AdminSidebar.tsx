@@ -14,6 +14,7 @@ import {
   BookOpen,
   ImageIcon,
   Wallpaper,
+  Layers,
   Menu,
   X,
   ChevronLeft,
@@ -24,6 +25,7 @@ import { logoutAction } from "@/lib/auth-actions";
 const navItems = [
   { label: "Tableau de bord", href: "/admin", icon: LayoutDashboard },
   { label: "Hero Banner", href: "/admin/hero", icon: Wallpaper },
+  { label: "Pôles", href: "/admin/poles", icon: Layers },
   { label: "Témoignages", href: "/admin/temoignages", icon: MessageSquareQuote },
   { label: "FAQ", href: "/admin/faq", icon: HelpCircle },
   { label: "Réseaux sociaux", href: "/admin/reseaux-sociaux", icon: Share2 },

@@ -65,7 +65,7 @@ function HeroSection({
           scaleRange={[1.12, 1]}
         />
         {/* Overlay dégradé */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2c2825]/70 via-[#2c2825]/30 to-[#2c2825]/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-afro-dark/70 via-afro-dark/30 to-afro-dark/20" />
       </div>
 
       {/* Contenu centré sur l'image */}
@@ -82,12 +82,12 @@ function HeroSection({
           {h.quote && (
             <ScrollReveal animation="blur-in" delay={200} duration={900}>
               <blockquote className="mt-6 sm:mt-8">
-                <p
+                <h1
                   id="hero-title"
                   className="font-serif text-2xl font-normal italic leading-snug text-white sm:text-3xl md:text-4xl lg:text-[2.75rem] lg:leading-snug"
                 >
                   &ldquo;{h.quote}&rdquo;
-                </p>
+                </h1>
               </blockquote>
             </ScrollReveal>
           )}
@@ -97,7 +97,7 @@ function HeroSection({
               {h.ctaLabel1 && (
                 <a
                   href={h.ctaLink1 || "#"}
-                  className="group inline-flex min-h-[44px] items-center gap-3 border border-white/50 px-7 py-3 text-[11px] font-medium uppercase tracking-[0.15em] text-white transition-colors duration-300 hover:bg-white hover:text-[#2c2825]"
+                  className="group inline-flex min-h-[44px] items-center gap-3 border border-white/50 px-7 py-3 text-[11px] font-medium uppercase tracking-[0.15em] text-white transition-colors duration-300 hover:bg-white hover:text-afro-dark"
                 >
                   {h.ctaLabel1}
                   <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -161,16 +161,16 @@ type PoleData = { surtitre: string; titre: string; description: string; image: s
 function PolesSection({ poles: polesProp }: { poles?: PoleData[] }) {
   const poles = polesProp && polesProp.length > 0 ? polesProp : fallbackPoles;
   return (
-    <section id="poles" className="bg-[#fcfaf5]" aria-labelledby="poles-title">
+    <section id="poles" className="bg-afro-light" aria-labelledby="poles-title">
       {/* En-tête de section */}
       <div className="mx-auto max-w-7xl px-6 pt-20 sm:pt-28 lg:px-8">
         <ScrollReveal animation="fade-up">
-          <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-[#2c2825]/40">
+          <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-afro-dark/40">
             Nos engagements
           </p>
           <h2
             id="poles-title"
-            className="mt-4 font-serif text-3xl font-normal text-[#2c2825] sm:text-4xl md:text-5xl"
+            className="mt-4 font-serif text-3xl font-normal text-afro-dark sm:text-4xl md:text-5xl"
           >
             Trois pôles, une même{" "}
             <span className="font-handwriting text-[1.15em] not-italic text-afro-orange">
@@ -185,7 +185,7 @@ function PolesSection({ poles: polesProp }: { poles?: PoleData[] }) {
         {poles.map((pole, i) => (
           <div
             key={pole.titre}
-            className={`grid items-center gap-8 border-t border-[#2c2825]/10 py-12 sm:py-16 md:grid-cols-2 md:gap-16 lg:gap-24 ${
+            className={`grid items-center gap-8 border-t border-afro-dark/10 py-12 sm:py-16 md:grid-cols-2 md:gap-16 lg:gap-24 ${
               i % 2 !== 0 ? "md:[direction:rtl]" : ""
             }`}
           >
@@ -195,10 +195,10 @@ function PolesSection({ poles: polesProp }: { poles?: PoleData[] }) {
                 <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-afro-orange">
                   {pole.surtitre}
                 </p>
-                <h3 className="mt-3 font-serif text-2xl font-normal text-[#2c2825] sm:text-3xl">
+                <h3 className="mt-3 font-serif text-2xl font-normal text-afro-dark sm:text-3xl">
                   {pole.titre}
                 </h3>
-                <p className="mt-4 max-w-lg text-base leading-relaxed text-[#2c2825]/60">
+                <p className="mt-4 max-w-lg text-base leading-relaxed text-afro-dark/60">
                   {pole.description}
                 </p>
               </div>
@@ -242,19 +242,19 @@ function GalerieSection({ images }: { images?: GalleryImageData[] }) {
   return (
     <section
       id="galerie"
-      className="bg-[#fcfaf5]"
+      className="bg-afro-light"
       aria-labelledby="galerie-title"
     >
       <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28 lg:px-8">
         <ScrollReveal animation="fade-up">
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-[#2c2825]/40">
+              <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-afro-dark/40">
                 Sur le terrain
               </p>
               <h2
                 id="galerie-title"
-                className="mt-4 font-serif text-3xl font-normal text-[#2c2825] sm:text-4xl md:text-5xl"
+                className="mt-4 font-serif text-3xl font-normal text-afro-dark sm:text-4xl md:text-5xl"
               >
                 Revivez nos{" "}
                 <span className="font-handwriting text-[1.15em] not-italic text-afro-magenta">
@@ -294,7 +294,7 @@ function GalerieSection({ images }: { images?: GalleryImageData[] }) {
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
-                <p className="mt-3 text-xs font-medium uppercase tracking-[0.1em] text-[#2c2825]/40">
+                <p className="mt-3 text-xs font-medium uppercase tracking-[0.1em] text-afro-dark/40">
                   {img.legend}
                 </p>
               </div>
@@ -311,7 +311,7 @@ function GalerieSection({ images }: { images?: GalleryImageData[] }) {
    ───────────────────────────────────────────── */
 function EngagementSection() {
   return (
-    <section className="bg-[#f0ebe3]" aria-labelledby="engagement-title">
+    <section className="bg-afro-warm" aria-labelledby="engagement-title">
       <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28 lg:px-8">
         <div className="grid items-center gap-12 md:grid-cols-2 md:gap-20">
           {/* Texte */}
@@ -319,17 +319,17 @@ function EngagementSection() {
             <div>
               <span
                 aria-hidden="true"
-                className="block font-handwriting text-4xl text-[#2c2825]/8 sm:text-5xl"
+                className="block font-handwriting text-4xl text-afro-dark/8 sm:text-5xl"
               >
                 Communauté
               </span>
               <h2
                 id="engagement-title"
-                className="mt-4 font-serif text-3xl font-normal text-[#2c2825] sm:text-4xl"
+                className="mt-4 font-serif text-3xl font-normal text-afro-dark sm:text-4xl"
               >
                 Rejoignez le mouvement
               </h2>
-              <p className="mt-4 max-w-md text-base leading-relaxed text-[#2c2825]/60">
+              <p className="mt-4 max-w-md text-base leading-relaxed text-afro-dark/60">
                 Que vous souhaitiez devenir bénévole, adhérer à l&apos;association ou
                 simplement participer à nos événements, il y a une place pour vous.
               </p>
@@ -339,14 +339,14 @@ function EngagementSection() {
                   href="https://www.helloasso.com/associations/culture-afro"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex min-h-[44px] w-fit items-center gap-3 border border-[#2c2825] px-7 py-3 text-[11px] font-medium uppercase tracking-[0.15em] text-[#2c2825] transition-colors duration-300 hover:bg-[#2c2825] hover:text-[#fcfaf5]"
+                  className="group inline-flex min-h-[44px] w-fit items-center gap-3 border border-afro-dark px-7 py-3 text-[11px] font-medium uppercase tracking-[0.15em] text-afro-dark transition-colors duration-300 hover:bg-afro-dark hover:text-afro-light"
                 >
                   Adhérer via HelloAsso
                   <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
                 <a
                   href="#contact"
-                  className="inline-flex min-h-[44px] w-fit items-center text-[11px] font-medium uppercase tracking-[0.15em] text-[#2c2825]/60 underline underline-offset-4 decoration-[#2c2825]/20 transition-colors duration-300 hover:text-[#2c2825]"
+                  className="inline-flex min-h-[44px] w-fit items-center text-[11px] font-medium uppercase tracking-[0.15em] text-afro-dark/60 underline underline-offset-4 decoration-afro-dark/20 transition-colors duration-300 hover:text-afro-dark"
                 >
                   Devenir bénévole
                 </a>
@@ -383,7 +383,7 @@ function FooterEditorial({ socialLinks, contactInfos }: { socialLinks: SocialLin
   const email = contactInfos.find((c) => c.type === "email");
   const hours = contactInfos.find((c) => c.type === "hours");
   return (
-    <footer className="bg-[#2c2825]" role="contentinfo" id="contact">
+    <footer className="bg-afro-dark" role="contentinfo" id="contact">
       <div className="mx-auto max-w-7xl px-6 py-16 sm:py-20 lg:px-8">
         {/* Grille principale */}
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
@@ -553,14 +553,34 @@ export default async function HomePage() {
     getActivePoles(),
   ]);
 
+  // FAQ Schema JSON-LD
+  const faqJsonLd = faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  } : null;
+
   return (
     <>
       <Header />
-      <main>
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
+      <main id="main-content">
         <HeroSection hero={heroBanner} />
 
         {/* Chiffres clés */}
-        <div className="bg-[#fcfaf5]">
+        <div className="bg-afro-light">
           <ScrollReveal animation="fade-up">
             <StatsSection stats={stats} />
           </ScrollReveal>
@@ -571,19 +591,19 @@ export default async function HomePage() {
         <GalerieSection images={galleryImages} />
 
         {/* Témoignages — conservé dynamique */}
-        <div className="bg-[#fcfaf5]">
+        <div className="bg-afro-light">
           <TestimonialsSection testimonials={testimonials} />
         </div>
 
         <EngagementSection />
 
         {/* Partenaires — conservé dynamique */}
-        <div className="bg-[#fcfaf5]">
+        <div className="bg-afro-light">
           <PartnersSection partners={partners} />
         </div>
 
         {/* FAQ — conservé dynamique */}
-        <div id="faq" className="bg-[#fcfaf5]">
+        <div className="bg-afro-light">
           <FAQSection faqs={faqs} />
         </div>
       </main>

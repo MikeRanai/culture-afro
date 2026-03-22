@@ -199,7 +199,7 @@ export default function HeroAdmin({ initial }: { initial: HeroData | null }) {
               className="absolute inset-0 h-full w-full object-cover opacity-60"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#2c2825]/70 via-[#2c2825]/30 to-[#2c2825]/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-afro-dark/70 via-afro-dark/30 to-afro-dark/20" />
           <div className="relative flex h-full flex-col justify-end p-6">
             {form.subtitle && (
               <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-white/50">

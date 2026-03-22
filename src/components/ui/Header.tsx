@@ -19,10 +19,18 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[#fcfaf5]/90 backdrop-blur-sm shadow-sm"
+          ? "bg-afro-light/90 backdrop-blur-sm shadow-sm"
           : "bg-gradient-to-b from-black/50 to-transparent"
       }`}
     >
+      {/* Skip link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-afro-orange focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+      >
+        Passer au contenu principal
+      </a>
+
       <nav
         aria-label="Navigation principale"
         className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8"
@@ -39,7 +47,7 @@ export default function Header() {
           />
           <span
             className={`hidden text-xs font-medium uppercase tracking-[0.25em] transition-colors duration-500 sm:block ${
-              scrolled ? "text-[#2c2825]" : "text-white"
+              scrolled ? "text-afro-dark" : "text-white"
             }`}
           >
             Culture Afro
@@ -59,7 +67,7 @@ export default function Header() {
                 href={item.href}
                 className={`min-h-[44px] flex items-center text-[11px] font-medium uppercase tracking-[0.2em] transition-colors duration-500 ${
                   scrolled
-                    ? "text-[#2c2825]/60 hover:text-[#2c2825]"
+                    ? "text-afro-dark/60 hover:text-afro-dark"
                     : "text-white/90 hover:text-white"
                 }`}
               >
@@ -74,8 +82,8 @@ export default function Header() {
           href="#annuaire"
           className={`hidden min-h-[44px] items-center px-6 py-2.5 text-[11px] font-medium uppercase tracking-[0.15em] transition-all duration-500 md:inline-flex ${
             scrolled
-              ? "border border-[#2c2825] text-[#2c2825] hover:bg-[#2c2825] hover:text-[#fcfaf5]"
-              : "border border-white/80 text-white hover:bg-white hover:text-[#2c2825]"
+              ? "border border-afro-dark text-afro-dark hover:bg-afro-dark hover:text-afro-light"
+              : "border border-white/80 text-white hover:bg-white hover:text-afro-dark"
           }`}
         >
           Consulter l&apos;annuaire
@@ -88,7 +96,7 @@ export default function Header() {
       {/* Ligne de séparation fine */}
       <div
         className={`h-px transition-opacity duration-500 ${
-          scrolled ? "bg-[#2c2825]/8 opacity-100" : "opacity-0"
+          scrolled ? "bg-afro-dark/8 opacity-100" : "opacity-0"
         }`}
       />
     </header>
@@ -110,7 +118,7 @@ function MobileMenu({ scrolled }: { scrolled: boolean }) {
       <label
         htmlFor="mobile-menu-toggle"
         className={`flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center transition-colors duration-500 ${
-          scrolled ? "text-[#2c2825]" : "text-white"
+          scrolled ? "text-afro-dark" : "text-white"
         }`}
         aria-label="Menu de navigation"
         role="button"
@@ -121,7 +129,7 @@ function MobileMenu({ scrolled }: { scrolled: boolean }) {
       </label>
 
       {/* Panel mobile */}
-      <div className="invisible fixed inset-x-0 top-[65px] z-40 translate-y-[-10px] bg-[#fcfaf5] opacity-0 transition-all duration-300 peer-checked:visible peer-checked:translate-y-0 peer-checked:opacity-100">
+      <div className="invisible fixed inset-x-0 top-[65px] z-40 translate-y-[-10px] bg-afro-light opacity-0 transition-all duration-300 peer-checked:visible peer-checked:translate-y-0 peer-checked:opacity-100">
         <div className="mx-auto flex max-w-7xl flex-col px-6 py-8">
           {[
             { label: "Nos pôles", href: "#poles" },
@@ -132,14 +140,14 @@ function MobileMenu({ scrolled }: { scrolled: boolean }) {
             <a
               key={item.label}
               href={item.href}
-              className="min-h-[44px] border-b border-[#2c2825]/8 py-4 text-sm font-medium uppercase tracking-[0.15em] text-[#2c2825]/70 transition-colors hover:text-[#2c2825]"
+              className="min-h-[44px] border-b border-afro-dark/8 py-4 text-sm font-medium uppercase tracking-[0.15em] text-afro-dark/70 transition-colors hover:text-afro-dark"
             >
               {item.label}
             </a>
           ))}
           <a
             href="#annuaire"
-            className="mt-6 flex min-h-[44px] items-center justify-center border border-[#2c2825] px-6 py-3 text-center text-[11px] font-medium uppercase tracking-[0.15em] text-[#2c2825]"
+            className="mt-6 flex min-h-[44px] items-center justify-center border border-afro-dark px-6 py-3 text-center text-[11px] font-medium uppercase tracking-[0.15em] text-afro-dark"
           >
             Consulter l&apos;annuaire
           </a>

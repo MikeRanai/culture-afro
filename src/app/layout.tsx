@@ -37,6 +37,9 @@ export const metadata: Metadata = {
     icon: "/images/logo-culture-afro.svg",
     apple: "/images/logo-culture-afro.svg",
   },
+  other: {
+    "theme-color": "#e96a35",
+  },
   manifest: "/manifest.webmanifest",
   openGraph: {
     title: "Association Culture Afro | Éducation Capillaire à La Réunion",
@@ -49,7 +52,7 @@ export const metadata: Metadata = {
       {
         url: "/images/hero-img.webp",
         width: 1200,
-        height: 1200,
+        height: 630,
         alt: "Association Culture Afro - Éducation capillaire à La Réunion",
       },
     ],

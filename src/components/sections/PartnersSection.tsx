@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type Partner = {
   id: string;
   name: string;
@@ -35,11 +37,13 @@ export default function PartnersSection({ partners }: { partners: Partner[] }) {
           {partners.map((p) => {
             const content = (
               <div className="flex flex-col items-center gap-2 transition-opacity duration-300 hover:opacity-70">
-                <div className="flex h-14 w-14 items-center justify-center sm:h-20 sm:w-20">
-                  <img
+                <div className="relative flex h-14 w-14 items-center justify-center sm:h-20 sm:w-20">
+                  <Image
                     src={p.logo}
                     alt={p.name}
-                    className="max-h-full max-w-full object-contain"
+                    fill
+                    sizes="(max-width: 640px) 56px, 80px"
+                    className="object-contain"
                   />
                 </div>
                 <p className="text-center text-xs font-medium text-afro-dark/70 sm:text-sm">

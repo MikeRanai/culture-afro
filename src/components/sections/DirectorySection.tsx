@@ -22,7 +22,7 @@ export default function DirectorySection({ entries }: { entries: DirectoryEntry[
   if (entries.length === 0) return null;
 
   return (
-    <section id="annuaire" className="bg-[#2c2825]" aria-labelledby="annuaire-title">
+    <section id="annuaire" className="bg-afro-dark" aria-labelledby="annuaire-title">
       <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28 lg:px-8">
         {/* En-tête */}
         <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-white/30">
@@ -78,7 +78,7 @@ export default function DirectorySection({ entries }: { entries: DirectoryEntry[
                               className="object-contain"
                             />
                           ) : (
-                            <span className="flex h-full w-full items-center justify-center text-sm font-semibold text-[#2c2825]/40">
+                            <span className="flex h-full w-full items-center justify-center text-sm font-semibold text-afro-dark/40">
                               {entry.name.charAt(0)}
                             </span>
                           )}

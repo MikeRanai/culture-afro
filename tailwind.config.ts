@@ -12,8 +12,9 @@ const config: Config = {
         afro: {
           orange: "#e96a35",
           magenta: "#b01654",
-          dark: "#2d1b14", // Un brun très sombre pour les textes (meilleur contraste)
-          light: "#fffdfa", // Un blanc légèrement cassé pour un aspect organique
+          dark: "#2c2825",
+          light: "#fcfaf5",
+          warm: "#f0ebe3",
         },
       },
       fontFamily: {

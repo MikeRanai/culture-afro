@@ -102,6 +102,20 @@ model DirectoryEntry {
   updatedAt   DateTime @updatedAt
 }
 
+model HeroBanner {
+  id          String   @id @default(cuid())
+  image       String   @default("")
+  subtitle    String   @default("")
+  quote       String   @default("")
+  ctaLabel1   String   @default("")
+  ctaLink1    String   @default("")
+  ctaLabel2   String   @default("")
+  ctaLink2    String   @default("")
+  decorWord   String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model ContactInfo {
   id        String   @id @default(cuid())
   type      String

@@ -17,12 +17,38 @@ import {
   getContactInfos,
   getActiveDirectoryEntries,
   getActiveGalleryImages,
+  getHeroBanner,
 } from "@/lib/actions";
 
 /* ─────────────────────────────────────────────
    HERO — Fullscreen immersif
    ───────────────────────────────────────────── */
-function HeroSection() {
+function HeroSection({
+  hero,
+}: {
+  hero: {
+    image: string;
+    subtitle: string;
+    quote: string;
+    ctaLabel1: string;
+    ctaLink1: string;
+    ctaLabel2: string;
+    ctaLink2: string;
+    decorWord: string;
+  } | null;
+}) {
+  const h = hero ?? {
+    image: "/images/hero-img.webp",
+    subtitle: "Association Culture Afro · La Réunion",
+    quote:
+      "Ensemble, célébrons la beauté des cheveux crépus, frisés et bouclés, comme un héritage vivant. Transmettons, avec fierté et douceur, l\u2019âme de notre identité capillaire au naturel.",
+    ctaLabel1: "Consulter l\u2019annuaire",
+    ctaLink1: "#annuaire",
+    ctaLabel2: "Découvrir nos pôles",
+    ctaLink2: "#poles",
+    decorWord: "Héritage",
+  };
+
   return (
     <section
       aria-labelledby="hero-title"
@@ -31,7 +57,7 @@ function HeroSection() {
       {/* Image fullscreen avec parallax */}
       <div className="absolute inset-0">
         <ParallaxImage
-          src="/images/hero-img.webp"
+          src={h.image || "/images/hero-img.webp"}
           alt="Femmes aux cheveux texturés lors d'un événement Culture Afro"
           sizes="100vw"
           priority
@@ -44,51 +70,59 @@ function HeroSection() {
       {/* Contenu centré sur l'image */}
       <div className="relative flex h-full flex-col justify-end pb-16 sm:pb-20 md:pb-24">
         <div className="mx-auto w-full max-w-5xl px-6 lg:px-8">
-          <ScrollReveal animation="fade-in" duration={600}>
-            <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-white/50">
-              Association Culture Afro · La Réunion
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal animation="blur-in" delay={200} duration={900}>
-            <blockquote className="mt-6 sm:mt-8">
-              <p
-                id="hero-title"
-                className="font-serif text-2xl font-normal italic leading-snug text-white sm:text-3xl md:text-4xl lg:text-[2.75rem] lg:leading-snug"
-              >
-                &ldquo;Ensemble, célébrons la beauté des cheveux crépus, frisés et bouclés,
-                comme un héritage vivant. Transmettons, avec fierté et douceur,
-                l&apos;âme de notre identité capillaire au naturel.&rdquo;
+          {h.subtitle && (
+            <ScrollReveal animation="fade-in" duration={600}>
+              <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-white/50">
+                {h.subtitle}
               </p>
-            </blockquote>
-          </ScrollReveal>
+            </ScrollReveal>
+          )}
+
+          {h.quote && (
+            <ScrollReveal animation="blur-in" delay={200} duration={900}>
+              <blockquote className="mt-6 sm:mt-8">
+                <p
+                  id="hero-title"
+                  className="font-serif text-2xl font-normal italic leading-snug text-white sm:text-3xl md:text-4xl lg:text-[2.75rem] lg:leading-snug"
+                >
+                  &ldquo;{h.quote}&rdquo;
+                </p>
+              </blockquote>
+            </ScrollReveal>
+          )}
 
           <ScrollReveal animation="fade-up" delay={500}>
             <div className="mt-8 flex flex-wrap items-center gap-4 sm:mt-10">
-              <a
-                href="#annuaire"
-                className="group inline-flex min-h-[44px] items-center gap-3 border border-white/50 px-7 py-3 text-[11px] font-medium uppercase tracking-[0.15em] text-white transition-colors duration-300 hover:bg-white hover:text-[#2c2825]"
-              >
-                Consulter l&apos;annuaire
-                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
-              <a
-                href="#poles"
-                className="inline-flex min-h-[44px] items-center gap-2 px-2 py-3 text-[11px] font-medium uppercase tracking-[0.15em] text-white/60 underline underline-offset-4 decoration-white/20 transition-colors duration-300 hover:text-white hover:decoration-white/50"
-              >
-                Découvrir nos pôles
-              </a>
+              {h.ctaLabel1 && (
+                <a
+                  href={h.ctaLink1 || "#"}
+                  className="group inline-flex min-h-[44px] items-center gap-3 border border-white/50 px-7 py-3 text-[11px] font-medium uppercase tracking-[0.15em] text-white transition-colors duration-300 hover:bg-white hover:text-[#2c2825]"
+                >
+                  {h.ctaLabel1}
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                </a>
+              )}
+              {h.ctaLabel2 && (
+                <a
+                  href={h.ctaLink2 || "#"}
+                  className="inline-flex min-h-[44px] items-center gap-2 px-2 py-3 text-[11px] font-medium uppercase tracking-[0.15em] text-white/60 underline underline-offset-4 decoration-white/20 transition-colors duration-300 hover:text-white hover:decoration-white/50"
+                >
+                  {h.ctaLabel2}
+                </a>
+              )}
             </div>
           </ScrollReveal>
         </div>
 
         {/* Mot cursif décoratif */}
-        <span
-          aria-hidden="true"
-          className="absolute bottom-8 right-6 font-handwriting text-5xl text-white/10 sm:bottom-12 sm:right-12 sm:text-7xl md:text-8xl lg:text-9xl"
-        >
-          Héritage
-        </span>
+        {h.decorWord && (
+          <span
+            aria-hidden="true"
+            className="absolute bottom-8 right-6 font-handwriting text-5xl text-white/10 sm:bottom-12 sm:right-12 sm:text-7xl md:text-8xl lg:text-9xl"
+          >
+            {h.decorWord}
+          </span>
+        )}
       </div>
     </section>
   );
@@ -502,7 +536,7 @@ function FooterEditorial({ socialLinks, contactInfos }: { socialLinks: SocialLin
    PAGE PRINCIPALE
    ───────────────────────────────────────────── */
 export default async function HomePage() {
-  const [testimonials, faqs, partners, stats, socialLinks, contactInfos, directoryEntries, galleryImages] = await Promise.all([
+  const [testimonials, faqs, partners, stats, socialLinks, contactInfos, directoryEntries, galleryImages, heroBanner] = await Promise.all([
     getActiveTestimonials(),
     getActiveFaqs(),
     getActivePartners(),
@@ -511,13 +545,14 @@ export default async function HomePage() {
     getContactInfos(),
     getActiveDirectoryEntries(),
     getActiveGalleryImages(),
+    getHeroBanner(),
   ]);
 
   return (
     <>
       <Header />
       <main>
-        <HeroSection />
+        <HeroSection hero={heroBanner} />
 
         {/* Chiffres clés */}
         <div className="bg-[#fcfaf5]">

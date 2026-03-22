@@ -66,6 +66,17 @@ const directoryEntrySchema = z.object({
   sortOrder: z.number().int().min(0).optional(),
 });
 
+const heroBannerSchema = z.object({
+  image: z.string().max(500).optional(),
+  subtitle: z.string().max(200).optional(),
+  quote: z.string().max(1000).optional(),
+  ctaLabel1: z.string().max(100).optional(),
+  ctaLink1: z.string().max(200).optional(),
+  ctaLabel2: z.string().max(100).optional(),
+  ctaLink2: z.string().max(200).optional(),
+  decorWord: z.string().max(50).optional(),
+});
+
 const contactInfoSchema = z.object({
   type: z.string().min(1, "Type requis").max(50),
   title: z.string().min(1, "Titre requis").max(100).transform((s) => s.trim()),
@@ -436,6 +447,33 @@ export async function deleteContactInfo(id: string) {
   z.string().min(1, "ID requis").parse(id);
   await prisma.contactInfo.delete({ where: { id } });
   revalidatePath("/admin/contact");
+  revalidatePath("/");
+}
+
+// ─── Hero Banner ────────────────────────────────────────
+export async function getHeroBanner() {
+  return prisma.heroBanner.findFirst();
+}
+
+export async function upsertHeroBanner(data: {
+  image?: string;
+  subtitle?: string;
+  quote?: string;
+  ctaLabel1?: string;
+  ctaLink1?: string;
+  ctaLabel2?: string;
+  ctaLink2?: string;
+  decorWord?: string;
+}) {
+  await requireAuth();
+  const validated = heroBannerSchema.parse(data);
+  const existing = await prisma.heroBanner.findFirst();
+  if (existing) {
+    await prisma.heroBanner.update({ where: { id: existing.id }, data: validated });
+  } else {
+    await prisma.heroBanner.create({ data: validated });
+  }
+  revalidatePath("/admin/hero");
   revalidatePath("/");
 }
 

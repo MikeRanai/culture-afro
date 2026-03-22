@@ -13,6 +13,7 @@ import {
   Phone,
   BookOpen,
   ImageIcon,
+  Wallpaper,
   Menu,
   X,
   ChevronLeft,
@@ -22,6 +23,7 @@ import { logoutAction } from "@/lib/auth-actions";
 
 const navItems = [
   { label: "Tableau de bord", href: "/admin", icon: LayoutDashboard },
+  { label: "Hero Banner", href: "/admin/hero", icon: Wallpaper },
   { label: "Témoignages", href: "/admin/temoignages", icon: MessageSquareQuote },
   { label: "FAQ", href: "/admin/faq", icon: HelpCircle },
   { label: "Réseaux sociaux", href: "/admin/reseaux-sociaux", icon: Share2 },

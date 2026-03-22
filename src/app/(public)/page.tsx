@@ -5,6 +5,8 @@ import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import PartnersSection from "@/components/sections/PartnersSection";
 import StatsSection from "@/components/sections/StatsSection";
 import DirectorySection from "@/components/sections/DirectorySection";
+import ContactSection from "@/components/sections/ContactSection";
+import BackToTop from "@/components/ui/BackToTop";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ParallaxImage from "@/components/ui/ParallaxImage";
 import Header from "@/components/ui/Header";
@@ -383,7 +385,7 @@ function FooterEditorial({ socialLinks, contactInfos }: { socialLinks: SocialLin
   const email = contactInfos.find((c) => c.type === "email");
   const hours = contactInfos.find((c) => c.type === "hours");
   return (
-    <footer className="bg-afro-dark" role="contentinfo" id="contact">
+    <footer className="bg-afro-dark" role="contentinfo">
       <div className="mx-auto max-w-7xl px-6 py-16 sm:py-20 lg:px-8">
         {/* Grille principale */}
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
@@ -606,8 +608,12 @@ export default async function HomePage() {
         <div className="bg-afro-light">
           <FAQSection faqs={faqs} />
         </div>
+
+        {/* Contact */}
+        <ContactSection contactInfos={contactInfos} />
       </main>
       <FooterEditorial socialLinks={socialLinks} contactInfos={contactInfos} />
+      <BackToTop />
     </>
   );
 }

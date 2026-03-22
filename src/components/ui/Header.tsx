@@ -61,6 +61,7 @@ export default function Header() {
             { label: "Annuaire", href: "#annuaire" },
             { label: "Galerie", href: "#galerie" },
             { label: "FAQ", href: "#faq" },
+            { label: "Contact", href: "#contact" },
           ].map((item) => (
             <li key={item.label}>
               <a
@@ -79,14 +80,16 @@ export default function Header() {
 
         {/* CTA desktop */}
         <a
-          href="#annuaire"
+          href="https://www.helloasso.com/associations/culture-afro"
+          target="_blank"
+          rel="noopener noreferrer"
           className={`hidden min-h-[44px] items-center px-6 py-2.5 text-[11px] font-medium uppercase tracking-[0.15em] transition-all duration-500 md:inline-flex ${
             scrolled
               ? "border border-afro-dark text-afro-dark hover:bg-afro-dark hover:text-afro-light"
               : "border border-white/80 text-white hover:bg-white hover:text-afro-dark"
           }`}
         >
-          Consulter l&apos;annuaire
+          Nous rejoindre
         </a>
 
         {/* Menu burger mobile */}
@@ -136,6 +139,7 @@ function MobileMenu({ scrolled }: { scrolled: boolean }) {
             { label: "Annuaire", href: "#annuaire" },
             { label: "Galerie", href: "#galerie" },
             { label: "FAQ", href: "#faq" },
+            { label: "Contact", href: "#contact" },
           ].map((item) => (
             <a
               key={item.label}
@@ -146,10 +150,12 @@ function MobileMenu({ scrolled }: { scrolled: boolean }) {
             </a>
           ))}
           <a
-            href="#annuaire"
+            href="https://www.helloasso.com/associations/culture-afro"
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-6 flex min-h-[44px] items-center justify-center border border-afro-dark px-6 py-3 text-center text-[11px] font-medium uppercase tracking-[0.15em] text-afro-dark"
           >
-            Consulter l&apos;annuaire
+            Nous rejoindre
           </a>
         </div>
       </div>

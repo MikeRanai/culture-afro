@@ -34,12 +34,18 @@ export async function POST(req: NextRequest) {
     .toLowerCase();
   const pathname = `${folder}/${safeName}-${Date.now()}.${ext}`;
 
-  const blob = await put(pathname, file, {
-    access: "public",
-    addRandomSuffix: false,
-  });
+  try {
+    const blob = await put(pathname, file, {
+      access: "private",
+      addRandomSuffix: false,
+    });
 
-  return NextResponse.json({ url: blob.url });
+    return NextResponse.json({ url: blob.url });
+  } catch (error) {
+    console.error("Erreur upload Vercel Blob:", error);
+    const message = error instanceof Error ? error.message : "Erreur inconnue";
+    return NextResponse.json({ error: `Échec upload: ${message}` }, { status: 500 });
+  }
 }
 
 export async function DELETE(req: NextRequest) {

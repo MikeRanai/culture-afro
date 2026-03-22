@@ -1,11 +1,13 @@
 import Image from "next/image";
-import { ArrowRight, ArrowUpRight, Phone, Mail, Clock } from "lucide-react";
+import { ArrowRight, Phone, Mail, Clock } from "lucide-react";
 import FAQSection from "@/components/sections/FAQSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import PartnersSection from "@/components/sections/PartnersSection";
 import StatsSection from "@/components/sections/StatsSection";
 import DirectorySection from "@/components/sections/DirectorySection";
 import ContactSection from "@/components/sections/ContactSection";
+import MissionSection from "@/components/sections/MissionSection";
+import EngagementSection from "@/components/sections/EngagementSection";
 import BackToTop from "@/components/ui/BackToTop";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ParallaxImage from "@/components/ui/ParallaxImage";
@@ -308,72 +310,6 @@ function GalerieSection({ images }: { images?: GalleryImageData[] }) {
 }
 
 /* ─────────────────────────────────────────────
-   SECTION ENGAGEMENT — Rejoindre la communauté
-   ───────────────────────────────────────────── */
-function EngagementSection() {
-  return (
-    <section className="bg-afro-warm" aria-labelledby="engagement-title">
-      <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28 lg:px-8">
-        <div className="grid items-center gap-12 md:grid-cols-2 md:gap-20">
-          {/* Texte */}
-          <ScrollReveal animation="slide-right">
-            <div>
-              <span
-                aria-hidden="true"
-                className="block font-handwriting text-4xl text-afro-dark/8 sm:text-5xl"
-              >
-                Communauté
-              </span>
-              <h2
-                id="engagement-title"
-                className="mt-4 font-serif text-3xl font-normal text-afro-dark sm:text-4xl"
-              >
-                Rejoignez le mouvement
-              </h2>
-              <p className="mt-4 max-w-md text-base leading-relaxed text-afro-dark/60">
-                Que vous souhaitiez devenir bénévole, adhérer à l&apos;association ou
-                simplement participer à nos événements, il y a une place pour vous.
-              </p>
-
-              <div className="mt-8 flex flex-col gap-3">
-                <a
-                  href="https://www.helloasso.com/associations/culture-afro"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex min-h-[44px] w-fit items-center gap-3 border border-afro-dark px-7 py-3 text-[11px] font-medium uppercase tracking-[0.15em] text-afro-dark transition-colors duration-300 hover:bg-afro-dark hover:text-afro-light"
-                >
-                  Adhérer via HelloAsso
-                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </a>
-                <a
-                  href="#contact"
-                  className="inline-flex min-h-[44px] w-fit items-center text-[11px] font-medium uppercase tracking-[0.15em] text-afro-dark/60 underline underline-offset-4 decoration-afro-dark/20 transition-colors duration-300 hover:text-afro-dark"
-                >
-                  Devenir bénévole
-                </a>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          {/* Image */}
-          <ScrollReveal animation="slide-left" delay={200}>
-            <div className="relative aspect-[4/5] w-full overflow-hidden">
-              <Image
-                src="/images/benevoles.webp"
-                alt="Bénévoles de l'association Culture Afro"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-              />
-            </div>
-          </ScrollReveal>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
    FOOTER — Éditorial, informations pratiques
    ───────────────────────────────────────────── */
 type SocialLinkData = { id: string; platform: string; handle: string; url: string };
@@ -586,6 +522,9 @@ export default async function HomePage() {
             <StatsSection stats={stats} />
           </ScrollReveal>
         </div>
+
+        {/* Mission & Valeurs */}
+        <MissionSection />
 
         <PolesSection poles={poles} />
         <DirectorySection entries={directoryEntries} />

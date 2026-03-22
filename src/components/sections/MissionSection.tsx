@@ -1,4 +1,5 @@
 import { Heart, Sparkles, Users, Leaf } from "lucide-react";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const values = [
   {
@@ -6,28 +7,32 @@ const values = [
     title: "Bienveillance",
     description:
       "Écouter, conseiller, partager vos histoires et vos expériences, toujours dans la bonne humeur et la convivialité.",
-    color: "bg-afro-magenta/10 text-afro-magenta",
+    accent: "text-afro-magenta",
+    line: "bg-afro-magenta/30",
   },
   {
     icon: Sparkles,
     title: "Transmission",
     description:
       "Des bénévoles et coiffeuses qui s'entraident et partagent leurs connaissances pour mieux répondre aux besoins de chacun·e.",
-    color: "bg-afro-orange/10 text-afro-orange",
+    accent: "text-afro-orange",
+    line: "bg-afro-orange/30",
   },
   {
     icon: Users,
     title: "Communauté",
     description:
       "Revenir à ce temps où l'on échangeait sans retenue, où chaque partage pouvait transformer la vie de quelqu'un.",
-    color: "bg-afro-magenta/10 text-afro-magenta",
+    accent: "text-afro-magenta",
+    line: "bg-afro-magenta/30",
   },
   {
     icon: Leaf,
     title: "Autonomie",
     description:
       "Accompagner du plus petit à l'adulte pour mieux comprendre ses cheveux et apprendre à les entretenir en toute autonomie.",
-    color: "bg-afro-orange/10 text-afro-orange",
+    accent: "text-afro-orange",
+    line: "bg-afro-orange/30",
   },
 ];
 
@@ -35,52 +40,49 @@ export default function MissionSection() {
   return (
     <section
       id="mission"
+      className="bg-afro-warm"
       aria-labelledby="mission-title"
-      className="py-16 md:py-24"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* En-tête */}
-        <div className="mx-auto mb-12 max-w-2xl text-center md:mb-16">
-          <span className="mb-3 inline-block rounded-full bg-afro-magenta/10 px-4 py-1 text-xs font-bold uppercase tracking-[0.15em] text-afro-magenta">
+      <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28 lg:px-8">
+        {/* En-tête éditorial */}
+        <ScrollReveal animation="fade-up">
+          <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-afro-dark/40">
             Qui sommes-nous
-          </span>
+          </p>
           <h2
             id="mission-title"
-            className="font-serif text-3xl font-bold text-afro-dark sm:text-4xl"
+            className="mt-4 font-serif text-3xl font-normal text-afro-dark sm:text-4xl md:text-5xl"
           >
-            Notre Mission
+            Portées par une même{" "}
+            <span className="font-handwriting text-[1.15em] not-italic text-afro-magenta">
+              mission
+            </span>
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-afro-dark/60">
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-afro-dark/60">
             L&apos;Association Culture Afro, c&apos;est avant tout un groupe de
             femmes passionnées, engagées et présentes sur tout le territoire.
             Notre mission&nbsp;? Vous aider à vous reconnecter à vous-mêmes et
-            à vos racines, avec fierté et authenticité — à travers des ateliers
-            gratuits, des événements sur le terrain et un espace
-            d&apos;échange bienveillant.
+            à vos racines, avec fierté et authenticité.
           </p>
-        </div>
+        </ScrollReveal>
 
-        {/* Grille valeurs */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map((v) => (
-            <div
-              key={v.title}
-              className="group rounded-2xl bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-            >
-              <div
-                className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl ${v.color} transition-transform duration-300 group-hover:scale-110`}
-              >
-                <v.icon className="h-6 w-6" aria-hidden="true" />
+        {/* Valeurs — style éditorial avec lignes séparatrices */}
+        <div className="mt-16 grid grid-cols-1 gap-0 sm:grid-cols-2 lg:grid-cols-4">
+          {values.map((v, i) => (
+            <ScrollReveal key={v.title} animation="fade-up" delay={i * 120}>
+              <div className="group relative border-t border-afro-dark/10 py-8 lg:border-l lg:border-t-0 lg:px-8 lg:py-0 lg:first:border-l-0 lg:first:pl-0">
+                <v.icon
+                  className={`h-5 w-5 ${v.accent}`}
+                  aria-hidden="true"
+                />
+                <h3 className="mt-4 font-serif text-xl font-normal text-afro-dark">
+                  {v.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-afro-dark/50">
+                  {v.description}
+                </p>
               </div>
-
-              <h3 className="mb-2 font-serif text-lg font-bold text-afro-dark">
-                {v.title}
-              </h3>
-
-              <p className="text-sm leading-relaxed text-afro-dark/60">
-                {v.description}
-              </p>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

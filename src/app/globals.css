@@ -3,6 +3,12 @@
 @config "../../tailwind.config.ts";
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Compenser le header fixe (~80px) pour les ancres */
+    scroll-padding-top: 80px;
+  }
+
   body {
     @apply bg-afro-light text-afro-dark antialiased;
   }
@@ -96,6 +102,9 @@
 
 /* Accessibilité : Mouvement Réduit - Règle Universelle 4.3 */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

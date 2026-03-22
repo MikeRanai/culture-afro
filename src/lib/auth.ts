@@ -5,7 +5,10 @@ import { cookies } from "next/headers";
 const PEPPER = process.env.PEPPER_SECRET!;
 const SECRET = new TextEncoder().encode(process.env.AUTH_SECRET!);
 const COOKIE_NAME = "admin_session";
-const SESSION_DURATION = "8h";
+const SESSION_DURATION = "2h";
+export const SESSION_MAX_AGE = 2 * 60 * 60; // 2 heures en secondes
+// Seuil pour renouveler le token (quand il reste moins de 50% de la durée)
+export const SESSION_REFRESH_THRESHOLD = SESSION_MAX_AGE / 2;
 
 // ─── Argon2id (serverless-safe) ──────────────────────────
 // memoryCost: 2^14 = 16 MB, timeCost: 3, parallelism: 1
@@ -55,7 +58,7 @@ export async function setSessionCookie(token: string) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    maxAge: 8 * 60 * 60, // 8 heures
+    maxAge: SESSION_MAX_AGE,
     path: "/",
   });
 }

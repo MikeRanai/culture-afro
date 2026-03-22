@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { jwtVerify } from "jose";
+import { jwtVerify, SignJWT } from "jose";
 
 const SECRET = new TextEncoder().encode(process.env.AUTH_SECRET!);
+const SESSION_MAX_AGE = 2 * 60 * 60; // 2 heures
+const REFRESH_THRESHOLD = SESSION_MAX_AGE / 2; // Renouveler si < 1h restante
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -16,7 +18,34 @@ export async function middleware(request: NextRequest) {
     }
 
     try {
-      await jwtVerify(token, SECRET);
+      const { payload } = await jwtVerify(token, SECRET);
+
+      // ─── Sliding session : renouveler si le token expire bientôt ───
+      const exp = payload.exp as number;
+      const now = Math.floor(Date.now() / 1000);
+      const remaining = exp - now;
+
+      if (remaining < REFRESH_THRESHOLD) {
+        const newToken = await new SignJWT({
+          userId: payload.userId,
+          email: payload.email,
+          name: payload.name,
+        })
+          .setProtectedHeader({ alg: "HS256" })
+          .setIssuedAt()
+          .setExpirationTime(`${SESSION_MAX_AGE}s`)
+          .sign(SECRET);
+
+        const response = NextResponse.next();
+        response.cookies.set("admin_session", newToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          maxAge: SESSION_MAX_AGE,
+          path: "/",
+        });
+        return response;
+      }
     } catch {
       // Token invalide ou expiré
       const response = NextResponse.redirect(

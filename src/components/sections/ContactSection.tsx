@@ -1,7 +1,7 @@
 "use client";
 
-import { Mail, MapPin, Clock, Phone, Send, Loader2, CheckCircle } from "lucide-react";
-import { useState, FormEvent } from "react";
+import { Mail, MapPin, Clock, Phone, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { useState, useRef, FormEvent } from "react";
 
 type ContactInfoData = {
   id: string;
@@ -32,6 +32,7 @@ export default function ContactSection({
   const infos = contactInfos && contactInfos.length > 0 ? contactInfos : fallbackInfos;
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -39,11 +40,19 @@ export default function ContactSection({
     setErrorMsg("");
 
     const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    // Honeypot : si rempli, c'est un bot
+    if (formData.get("website")) {
+      setStatus("sent");
+      return;
+    }
+
     const data = {
-      name: (form.elements.namedItem("name") as HTMLInputElement).value,
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      subject: (form.elements.namedItem("subject") as HTMLInputElement).value,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      subject: formData.get("subject") as string,
+      message: formData.get("message") as string,
     };
 
     try {
@@ -70,9 +79,10 @@ export default function ContactSection({
     <section
       id="contact"
       aria-labelledby="contact-title"
-      className="py-16 md:py-24"
+      className="bg-afro-warm py-16 md:py-24"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        {/* ─── En-tête ─── */}
         <div className="mb-10 text-center md:mb-14">
           <span className="mb-3 inline-block rounded-full bg-afro-magenta/10 px-4 py-1 text-xs font-bold uppercase tracking-[0.15em] text-afro-magenta">
             Parlons-en
@@ -90,12 +100,13 @@ export default function ContactSection({
         </div>
 
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-5 lg:gap-12">
-          <div className="flex flex-col gap-6 lg:col-span-2">
+          {/* ─── Infos de contact ─── */}
+          <div className="flex flex-col gap-5 lg:col-span-2">
             {infos.map((info) => {
               const Icon = iconMap[info.type] || Phone;
               const Content = (
                 <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-afro-orange/10">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-afro-orange/15 to-afro-magenta/10">
                     <Icon className="h-5 w-5 text-afro-orange" aria-hidden="true" />
                   </div>
                   <div>
@@ -113,62 +124,146 @@ export default function ContactSection({
                 <a
                   key={info.id}
                   href={info.href}
-                  className="min-h-[44px] rounded-2xl bg-white p-4 shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+                  className="min-h-[44px] rounded-2xl border border-afro-dark/5 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-afro-orange/20"
                 >
                   {Content}
                 </a>
               ) : (
-                <div key={info.id} className="rounded-2xl bg-white p-4 shadow-md">
+                <div
+                  key={info.id}
+                  className="rounded-2xl border border-afro-dark/5 bg-white p-5 shadow-sm"
+                >
                   {Content}
                 </div>
               );
             })}
+
+            {/* ─── Horaires indicatifs ─── */}
+            <div className="mt-2 rounded-2xl border border-afro-magenta/10 bg-afro-magenta/5 p-5">
+              <p className="text-xs font-bold uppercase tracking-wider text-afro-magenta/60">
+                Délai de réponse
+              </p>
+              <p className="mt-1 text-sm text-afro-dark/70">
+                Nous répondons généralement sous <strong className="text-afro-dark">48 heures</strong> ouvrées.
+              </p>
+            </div>
           </div>
 
-          <div className="rounded-2xl bg-white p-6 shadow-md sm:p-8 lg:col-span-3">
+          {/* ─── Formulaire ─── */}
+          <div className="rounded-2xl border border-afro-dark/5 bg-white p-6 shadow-sm sm:p-8 lg:col-span-3">
             <form
+              ref={formRef}
               onSubmit={handleSubmit}
               className="flex flex-col gap-5"
               aria-label="Formulaire de contact"
             >
+              {/* Honeypot anti-spam — invisible pour les humains */}
+              <div className="absolute -left-[9999px]" aria-hidden="true">
+                <label htmlFor="website">Ne pas remplir</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="contact-name" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-afro-dark/50">Nom</label>
-                  <input id="contact-name" name="name" type="text" required placeholder="Votre nom" autoComplete="name" className="min-h-[44px] w-full rounded-xl border border-afro-dark/10 bg-afro-light px-4 text-base text-afro-dark placeholder:text-afro-dark/35 transition-colors focus:border-afro-orange focus:outline-none focus:ring-1 focus:ring-afro-orange/30" />
+                  <label
+                    htmlFor="contact-name"
+                    className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-afro-dark/50"
+                  >
+                    Nom <span className="text-afro-magenta">*</span>
+                  </label>
+                  <input
+                    id="contact-name"
+                    name="name"
+                    type="text"
+                    required
+                    placeholder="Votre nom"
+                    autoComplete="name"
+                    className="min-h-[44px] w-full rounded-xl border border-afro-dark/10 bg-afro-light px-4 text-base text-afro-dark placeholder:text-afro-dark/35 transition-all duration-200 focus:border-afro-orange focus:outline-none focus:ring-2 focus:ring-afro-orange/20"
+                  />
                 </div>
                 <div>
-                  <label htmlFor="contact-email" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-afro-dark/50">Email</label>
-                  <input id="contact-email" name="email" type="email" inputMode="email" required placeholder="Votre email" autoComplete="email" className="min-h-[44px] w-full rounded-xl border border-afro-dark/10 bg-afro-light px-4 text-base text-afro-dark placeholder:text-afro-dark/35 transition-colors focus:border-afro-orange focus:outline-none focus:ring-1 focus:ring-afro-orange/30" />
+                  <label
+                    htmlFor="contact-email"
+                    className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-afro-dark/50"
+                  >
+                    Email <span className="text-afro-magenta">*</span>
+                  </label>
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    inputMode="email"
+                    required
+                    placeholder="Votre email"
+                    autoComplete="email"
+                    className="min-h-[44px] w-full rounded-xl border border-afro-dark/10 bg-afro-light px-4 text-base text-afro-dark placeholder:text-afro-dark/35 transition-all duration-200 focus:border-afro-orange focus:outline-none focus:ring-2 focus:ring-afro-orange/20"
+                  />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="contact-subject" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-afro-dark/50">Sujet</label>
-                <input id="contact-subject" name="subject" type="text" required placeholder="De quoi souhaitez-vous parler ?" className="min-h-[44px] w-full rounded-xl border border-afro-dark/10 bg-afro-light px-4 text-base text-afro-dark placeholder:text-afro-dark/35 transition-colors focus:border-afro-orange focus:outline-none focus:ring-1 focus:ring-afro-orange/30" />
+                <label
+                  htmlFor="contact-subject"
+                  className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-afro-dark/50"
+                >
+                  Sujet <span className="text-afro-magenta">*</span>
+                </label>
+                <input
+                  id="contact-subject"
+                  name="subject"
+                  type="text"
+                  required
+                  placeholder="De quoi souhaitez-vous parler ?"
+                  className="min-h-[44px] w-full rounded-xl border border-afro-dark/10 bg-afro-light px-4 text-base text-afro-dark placeholder:text-afro-dark/35 transition-all duration-200 focus:border-afro-orange focus:outline-none focus:ring-2 focus:ring-afro-orange/20"
+                />
               </div>
 
               <div>
-                <label htmlFor="contact-message" className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-afro-dark/50">Message</label>
-                <textarea id="contact-message" name="message" rows={4} required placeholder="Votre message..." className="min-h-[44px] w-full resize-none rounded-xl border border-afro-dark/10 bg-afro-light px-4 py-3 text-base text-afro-dark placeholder:text-afro-dark/35 transition-colors focus:border-afro-orange focus:outline-none focus:ring-1 focus:ring-afro-orange/30" />
+                <label
+                  htmlFor="contact-message"
+                  className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-afro-dark/50"
+                >
+                  Message <span className="text-afro-magenta">*</span>
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  rows={5}
+                  required
+                  placeholder="Votre message..."
+                  className="min-h-[44px] w-full resize-none rounded-xl border border-afro-dark/10 bg-afro-light px-4 py-3 text-base text-afro-dark placeholder:text-afro-dark/35 transition-all duration-200 focus:border-afro-orange focus:outline-none focus:ring-2 focus:ring-afro-orange/20"
+                />
               </div>
 
+              {/* ─── Messages de statut ─── */}
               {status === "sent" && (
-                <div className="flex items-center gap-2 rounded-xl bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
-                  <CheckCircle className="h-4 w-4" />
-                  Message envoyé avec succès !
+                <div className="flex items-center gap-3 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
+                  <CheckCircle className="h-5 w-5 shrink-0" aria-hidden="true" />
+                  <div>
+                    <p className="font-semibold">Message envoyé avec succès !</p>
+                    <p className="mt-0.5 text-xs text-green-600">Nous vous répondrons dans les plus brefs délais.</p>
+                  </div>
                 </div>
               )}
 
               {status === "error" && (
-                <div className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                <div className="flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                  <AlertCircle className="h-5 w-5 shrink-0" aria-hidden="true" />
                   {errorMsg}
                 </div>
               )}
 
+              {/* ─── Bouton d'envoi ─── */}
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-full bg-afro-magenta px-8 py-3 font-bold text-white shadow-lg shadow-afro-magenta/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-afro-magenta/30 disabled:opacity-60 disabled:hover:scale-100"
+                className="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-full bg-gradient-to-r from-afro-magenta to-afro-orange px-8 py-3 font-bold text-white shadow-lg shadow-afro-magenta/20 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-afro-magenta/30 disabled:opacity-60 disabled:hover:scale-100"
               >
                 {status === "sending" ? (
                   <>
@@ -177,11 +272,19 @@ export default function ContactSection({
                   </>
                 ) : (
                   <>
-                    Envoyer
+                    Envoyer le message
                     <Send className="h-4 w-4" aria-hidden="true" />
                   </>
                 )}
               </button>
+
+              <p className="text-xs text-afro-dark/40">
+                En envoyant ce formulaire, vous acceptez que vos données soient utilisées
+                uniquement pour répondre à votre demande, conformément à notre{" "}
+                <a href="/mentions-legales" className="underline hover:text-afro-magenta transition-colors">
+                  politique de confidentialité
+                </a>.
+              </p>
             </form>
           </div>
         </div>

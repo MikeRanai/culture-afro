@@ -206,15 +206,14 @@ function PolesSection({ poles: polesProp }: { poles?: PoleData[] }) {
               </div>
             </ScrollReveal>
 
-            {/* Image */}
+            {/* Image avec effet parallax au scroll */}
             <ScrollReveal animation={i % 2 === 0 ? "slide-left" : "slide-right"} delay={250}>
               <div className={`relative aspect-[4/3] w-full overflow-hidden ${i % 2 !== 0 ? "md:[direction:ltr]" : ""}`}>
-                <Image
+                <ParallaxImage
                   src={pole.image}
                   alt={pole.titre}
-                  fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
+                  scaleRange={[1, 1.12]}
                 />
               </div>
             </ScrollReveal>

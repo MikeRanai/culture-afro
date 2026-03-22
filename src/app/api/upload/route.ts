@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const blob = await put(pathname, file, {
-      access: "private",
+      access: "public",
       addRandomSuffix: false,
     });
 

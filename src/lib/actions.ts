@@ -89,7 +89,7 @@ const contactInfoSchema = z.object({
   type: z.string().min(1, "Type requis").max(50),
   title: z.string().min(1, "Titre requis").max(100).transform((s) => s.trim()),
   value: z.string().min(1, "Valeur requise").max(200).transform((s) => s.trim()),
-  href: z.string().max(500).optional(),
+  href: z.string().max(500).optional().nullable(),
   sortOrder: z.number().int().min(0).optional(),
 });
 

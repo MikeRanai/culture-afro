@@ -31,6 +31,7 @@ const config: Config = {
       animation: {
         'float': 'float 6s ease-in-out infinite',
         'shimmer': 'shimmer 2.5s linear infinite',
+        'marquee': 'marquee-scroll 30s linear infinite',
       },
       keyframes: {
         float: {
@@ -40,7 +41,11 @@ const config: Config = {
         shimmer: {
           '0%': { backgroundPosition: '-200% center' },
           '100%': { backgroundPosition: '200% center' },
-        }
+        },
+        'marquee-scroll': {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
       }
     },
   },

@@ -15,6 +15,12 @@ const config: Config = {
           dark: "#2c2825",
           light: "#fcfaf5",
           warm: "#f0ebe3",
+          // Africa style
+          amber: "#fd9a00",
+          tangerine: "#f97630",
+          navy: "#032497",
+          gold: "#f6c648",
+          sunlight: "#feb801",
         },
       },
       fontFamily: {

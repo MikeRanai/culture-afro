@@ -95,7 +95,7 @@ model DirectoryEntry {
   description String   @default("")
   logo        String   @default("")
   url         String?
-  category    String   @default("salons") // "salons" | "produits"
+  category    String   @default("salons") // "salons" | "produits" | "partenaires_techniques"
   sortOrder   Int      @default(0)
   active      Boolean  @default(true)
   createdAt   DateTime @default(now())

@@ -17,8 +17,9 @@ type Item = {
 };
 
 const categories = [
-  { value: "salons", label: "Salons & Coiffeuses" },
+  { value: "salons", label: "Coiffeurs & Salons" },
   { value: "produits", label: "Produits & Soins" },
+  { value: "partenaires_techniques", label: "Partenaires Techniques" },
 ];
 
 const empty = { name: "", description: "", logo: "", url: "", category: "salons", sortOrder: 0 };

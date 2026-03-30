@@ -18,6 +18,10 @@ const iconOptions = ["Users", "CalendarDays", "MapPin", "Award", "Heart", "Star"
 const colorOptions = [
   { value: "orange", label: "Orange" },
   { value: "magenta", label: "Magenta" },
+  { value: "amber", label: "Ambre (Africa)" },
+  { value: "tangerine", label: "Tangerine (Africa)" },
+  { value: "gold", label: "Or (Africa)" },
+  { value: "navy", label: "Bleu Navy (Africa)" },
 ];
 
 const empty = { value: "", label: "", icon: "Users", color: "orange", sortOrder: 0 };
@@ -141,7 +145,14 @@ export default function StatsAdmin({ items }: { items: Item[] }) {
           {items.map((item) => (
             <div key={item.id} className={`group rounded-2xl bg-white p-4 shadow-sm sm:p-5 ${!item.active ? "opacity-60" : ""}`}>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${item.color === "orange" ? "bg-afro-orange/10 text-afro-orange" : "bg-afro-magenta/10 text-afro-magenta"}`}>
+                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
+                  item.color === "magenta" ? "bg-afro-magenta/10 text-afro-magenta" :
+                  item.color === "amber" ? "bg-afro-amber/10 text-afro-amber" :
+                  item.color === "tangerine" ? "bg-afro-tangerine/10 text-afro-tangerine" :
+                  item.color === "gold" ? "bg-afro-gold/10 text-afro-gold" :
+                  item.color === "navy" ? "bg-afro-navy/10 text-afro-navy" :
+                  "bg-afro-orange/10 text-afro-orange"
+                }`}>
                   <span className="text-xs font-bold">{item.icon.slice(0, 3)}</span>
                 </div>
                 <div className="min-w-0 flex-1">

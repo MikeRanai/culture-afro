@@ -62,7 +62,7 @@ const directoryEntrySchema = z.object({
   description: z.string().max(200).optional(),
   logo: z.string().max(500).optional(),
   url: z.string().max(500).optional(),
-  category: z.enum(["salons", "produits"]).optional(),
+  category: z.enum(["salons", "produits", "partenaires_techniques"]).optional(),
   sortOrder: z.number().int().min(0).optional(),
 });
 

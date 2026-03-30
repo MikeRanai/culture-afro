@@ -15,6 +15,8 @@ const config: Config = {
           dark: "#2c2825",
           light: "#fcfaf5",
           warm: "#f0ebe3",
+          terracotta: "#a86048",
+          "terracotta-light": "#EDDCD2",
           // Africa style
           amber: "#fd9a00",
           tangerine: "#f97630",

@@ -530,19 +530,19 @@ export default async function HomePage() {
         <DirectorySection entries={directoryEntries} />
         <GalerieSection images={galleryImages} />
 
-        {/* Témoignages — conservé dynamique */}
-        <div className="bg-afro-light">
+        {/* Témoignages */}
+        <div className="bg-afro-terracotta-light">
           <TestimonialsSection testimonials={testimonials} />
         </div>
 
         <EngagementSection />
 
-        {/* Partenaires — conservé dynamique */}
+        {/* Partenaires */}
         <div className="bg-afro-light">
           <PartnersSection partners={partners} />
         </div>
 
-        {/* FAQ — conservé dynamique */}
+        {/* FAQ */}
         <div className="bg-afro-light">
           <FAQSection faqs={faqs} />
         </div>

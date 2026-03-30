@@ -30,9 +30,9 @@ const fallbackTestimonials: Testimonial[] = [
 ];
 
 const accentColors = [
-  { bg: "bg-afro-orange/10", text: "text-afro-orange", border: "border-afro-orange/20" },
-  { bg: "bg-afro-magenta/10", text: "text-afro-magenta", border: "border-afro-magenta/20" },
-  { bg: "bg-afro-orange/10", text: "text-afro-orange", border: "border-afro-orange/20" },
+  { bg: "bg-afro-terracotta/10", text: "text-afro-terracotta", border: "border-afro-terracotta/20" },
+  { bg: "bg-afro-dark/8", text: "text-afro-dark", border: "border-afro-dark/15" },
+  { bg: "bg-afro-terracotta/10", text: "text-afro-terracotta", border: "border-afro-terracotta/20" },
 ];
 
 export default function TestimonialsSection({
@@ -50,7 +50,7 @@ export default function TestimonialsSection({
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10 text-center md:mb-14">
-          <span className="mb-3 inline-block rounded-full bg-afro-magenta/10 px-4 py-1 text-xs font-bold uppercase tracking-[0.15em] text-afro-magenta">
+          <span className="mb-3 inline-block rounded-full bg-white/60 px-4 py-1 text-xs font-bold uppercase tracking-[0.15em] text-afro-terracotta">
             Vos témoignages
           </span>
           <h2
@@ -59,7 +59,7 @@ export default function TestimonialsSection({
           >
             Ils &amp; elles témoignent
           </h2>
-          <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-afro-dark/60">
+          <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-afro-dark/70">
             Des mots recueillis lors de nos ateliers, qui rappellent pourquoi
             notre action compte.
           </p>

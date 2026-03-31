@@ -15,6 +15,7 @@ import {
   ImageIcon,
   Wallpaper,
   Layers,
+  ExternalLink,
   Menu,
   X,
   ChevronLeft,
@@ -34,6 +35,7 @@ const navItems = [
   { label: "Galerie", href: "/admin/galerie", icon: ImageIcon },
   { label: "Partenaires", href: "/admin/partenaires", icon: Handshake },
   { label: "Contact", href: "/admin/contact", icon: Phone },
+  { label: "Image de partage", href: "/admin/partage", icon: ExternalLink },
 ];
 
 export default function AdminSidebar() {

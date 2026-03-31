@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, Dancing_Script } from "next/font/google";
+import { getSiteSettings } from "@/lib/actions";
 import "./globals.css";
 
 // Police pour le corps du texte
@@ -26,44 +27,56 @@ const dancing = Dancing_Script({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://www.assocultureafro.fr"),
-  title: "Association Culture Afro | Éducation Capillaire à La Réunion",
-  description: "Révélez la beauté de vos boucles naturelles. Éducation capillaire et loisirs créatifs afro à La Réunion.",
-  verification: {
-    google: "QURsNRlnqEzCOs3nJZoycCljXDAhhwo7ZcQLzVnmbDc",
-  },
-  icons: {
-    icon: "/images/logo-culture-afro.svg",
-    apple: "/images/logo-culture-afro.svg",
-  },
-  other: {
-    "theme-color": "#e96a35",
-  },
-  manifest: "/manifest.webmanifest",
-  openGraph: {
-    title: "Association Culture Afro | Éducation Capillaire à La Réunion",
-    description: "Révélez la beauté de vos boucles naturelles. Éducation capillaire et loisirs créatifs afro à La Réunion.",
-    url: "https://www.assocultureafro.fr",
-    siteName: "Association Culture Afro",
-    locale: "fr_FR",
-    type: "website",
-    images: [
-      {
-        url: "/images/illustration-partage-site.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Association Culture Afro - Éducation capillaire à La Réunion",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Association Culture Afro | Éducation Capillaire à La Réunion",
-    description: "Révélez la beauté de vos boucles naturelles. Éducation capillaire et loisirs créatifs afro à La Réunion.",
-    images: ["/images/illustration-partage-site.jpg"],
-  },
-};
+const DEFAULT_TITLE = "Association Culture Afro | Éducation Capillaire à La Réunion";
+const DEFAULT_DESCRIPTION = "Révélez la beauté de vos boucles naturelles. Éducation capillaire et loisirs créatifs afro à La Réunion.";
+const DEFAULT_OG_IMAGE = "/images/illustration-partage-site.jpg";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+
+  const ogTitle = settings?.ogTitle || DEFAULT_TITLE;
+  const ogDescription = settings?.ogDescription || DEFAULT_DESCRIPTION;
+  const ogImage = settings?.ogImage || DEFAULT_OG_IMAGE;
+
+  return {
+    metadataBase: new URL("https://www.assocultureafro.fr"),
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    verification: {
+      google: "QURsNRlnqEzCOs3nJZoycCljXDAhhwo7ZcQLzVnmbDc",
+    },
+    icons: {
+      icon: "/images/logo-culture-afro.svg",
+      apple: "/images/logo-culture-afro.svg",
+    },
+    other: {
+      "theme-color": "#e96a35",
+    },
+    manifest: "/manifest.webmanifest",
+    openGraph: {
+      title: ogTitle,
+      description: ogDescription,
+      url: "https://www.assocultureafro.fr",
+      siteName: "Association Culture Afro",
+      locale: "fr_FR",
+      type: "website",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: ogTitle,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description: ogDescription,
+      images: [ogImage],
+    },
+  };
+}
 
 export default function RootLayout({
   children,

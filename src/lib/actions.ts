@@ -532,6 +532,35 @@ export async function upsertHeroBanner(data: {
   revalidatePath("/");
 }
 
+// ─── Site Settings (OG / Partage) ───────────────────────
+
+const siteSettingsSchema = z.object({
+  ogImage: z.string().max(500).optional(),
+  ogTitle: z.string().max(200).optional(),
+  ogDescription: z.string().max(500).optional(),
+});
+
+export async function getSiteSettings() {
+  return prisma.siteSettings.findFirst();
+}
+
+export async function upsertSiteSettings(data: {
+  ogImage?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+}) {
+  await requireAuth();
+  const validated = siteSettingsSchema.parse(data);
+  const existing = await prisma.siteSettings.findFirst();
+  if (existing) {
+    await prisma.siteSettings.update({ where: { id: existing.id }, data: validated });
+  } else {
+    await prisma.siteSettings.create({ data: validated });
+  }
+  revalidatePath("/admin/partage");
+  revalidatePath("/");
+}
+
 // ─── Dashboard Stats ─────────────────────────────────────
 export async function getDashboardCounts() {
   await requireAuth();

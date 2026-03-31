@@ -16,7 +16,7 @@ function PartnerItem({ partner }: { partner: Partner }) {
           alt={partner.name}
           fill
           sizes="(max-width: 640px) 64px, 80px"
-          className="object-contain transition-all duration-300 grayscale hover:grayscale-0"
+          className="object-contain"
         />
       </div>
       <p className="whitespace-nowrap text-center text-xs font-medium text-afro-dark/50 sm:text-sm">

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowUpRight, Scissors, ShoppingBag, Wrench } from "lucide-react";
+import { ArrowUpRight, Heart, Scissors, ShoppingBag, Wrench } from "lucide-react";
 
 type DirectoryEntry = {
   id: string;
@@ -13,6 +13,7 @@ type DirectoryEntry = {
 const categories = [
   { key: "salons", label: "Coiffeurs & Salons", icon: Scissors },
   { key: "produits", label: "Produits & Soins", icon: ShoppingBag },
+  { key: "friperies", label: "Friperies Solidaires", icon: Heart },
   { key: "partenaires_techniques", label: "Partenaires Techniques", icon: Wrench },
 ];
 

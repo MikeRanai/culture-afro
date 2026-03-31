@@ -19,6 +19,7 @@ type Item = {
 const categories = [
   { value: "salons", label: "Coiffeurs & Salons" },
   { value: "produits", label: "Produits & Soins" },
+  { value: "friperies", label: "Friperies Solidaires" },
   { value: "partenaires_techniques", label: "Partenaires Techniques" },
 ];
 

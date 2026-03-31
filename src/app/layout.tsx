@@ -46,8 +46,8 @@ export async function generateMetadata(): Promise<Metadata> {
       google: "QURsNRlnqEzCOs3nJZoycCljXDAhhwo7ZcQLzVnmbDc",
     },
     icons: {
-      icon: "/images/logo-culture-afro.svg",
-      apple: "/images/logo-culture-afro.svg",
+      icon: "/favicon.ico",
+      apple: "/images/apple-touch-icon.png",
     },
     other: {
       "theme-color": "#e96a35",

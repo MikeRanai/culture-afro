@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/hero-img.webp",
+        url: "/images/illustration-partage-site.jpg",
         width: 1200,
         height: 630,
         alt: "Association Culture Afro - Éducation capillaire à La Réunion",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Association Culture Afro | Éducation Capillaire à La Réunion",
     description: "Révélez la beauté de vos boucles naturelles. Éducation capillaire et loisirs créatifs afro à La Réunion.",
-    images: ["/images/hero-img.webp"],
+    images: ["/images/illustration-partage-site.jpg"],
   },
 };
 

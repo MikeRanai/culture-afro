@@ -142,12 +142,12 @@ export default function Footer() {
             </p>
             <span aria-hidden="true">·</span>
             <a
-              href="https://mickaelranaivoson.fr"
+              href="https://www.mickaelranaivoson.fr"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors hover:text-afro-orange"
             >
-              MR Digital Solutions
+              Site réalisé par Mickaël Ranaivoson
             </a>
           </div>
         </div>

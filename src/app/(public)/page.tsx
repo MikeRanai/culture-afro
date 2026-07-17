@@ -460,12 +460,12 @@ function FooterEditorial({ socialLinks, contactInfos }: { socialLinks: SocialLin
             droits réservés.
           </p>
           <a
-            href="https://mickaelranaivoson.fr"
+            href="https://www.mickaelranaivoson.fr"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-white/25 transition-colors hover:text-white/50"
           >
-            MR Digital Solutions
+            Site réalisé par Mickaël Ranaivoson
           </a>
         </div>
       </div>

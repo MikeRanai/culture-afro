@@ -142,7 +142,7 @@ export default function Footer() {
             </p>
             <span aria-hidden="true">·</span>
             <a
-              href="https://www.mickaelranaivoson.fr"
+              href="https://www.mickaelranaivoson.fr/realisations/association-culture-afro"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors hover:text-afro-orange"

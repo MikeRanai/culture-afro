@@ -460,7 +460,7 @@ function FooterEditorial({ socialLinks, contactInfos }: { socialLinks: SocialLin
             droits réservés.
           </p>
           <a
-            href="https://www.mickaelranaivoson.fr"
+            href="https://www.mickaelranaivoson.fr/realisations/association-culture-afro"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-white/25 transition-colors hover:text-white/50"

@@ -59,7 +59,7 @@ const galleryImageSchema = z.object({
 
 const directoryEntrySchema = z.object({
   name: z.string().min(1, "Nom requis").max(100).transform((s) => s.trim()),
-  description: z.string().max(200).optional(),
+  description: z.string().max(500).optional(),
   logo: z.string().max(500).optional(),
   url: z.string().max(500).optional(),
   category: z.enum(["salons", "produits", "friperies", "partenaires_techniques"]).optional(),

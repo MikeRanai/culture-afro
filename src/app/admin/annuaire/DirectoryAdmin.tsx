@@ -31,6 +31,7 @@ export default function DirectoryAdmin({ items }: { items: Item[] }) {
   const [form, setForm] = useState(empty);
   const [pending, startTransition] = useTransition();
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   function startEdit(item: Item) {
     setAdding(false);
@@ -48,14 +49,20 @@ export default function DirectoryAdmin({ items }: { items: Item[] }) {
     setEditing(null);
     setAdding(false);
     setForm(empty);
+    setError(null);
   }
 
   function handleSave() {
+    setError(null);
     startTransition(async () => {
       const data = { ...form, url: form.url || undefined, description: form.description || undefined, logo: form.logo || undefined };
-      if (adding) await createDirectoryEntry(data);
-      else if (editing) await updateDirectoryEntry(editing, { ...data, url: form.url || null });
-      cancel();
+      try {
+        if (adding) await createDirectoryEntry(data);
+        else if (editing) await updateDirectoryEntry(editing, { ...data, url: form.url || null });
+        cancel();
+      } catch {
+        setError("L'enregistrement a échoué. Vérifiez les champs (description : 500 caractères max) et réessayez.");
+      }
     });
   }
 
@@ -112,7 +119,8 @@ export default function DirectoryAdmin({ items }: { items: Item[] }) {
             </div>
             <div className="sm:col-span-2">
               <label className="mb-1 block text-sm font-medium text-afro-dark/70">Description courte (optionnel)</label>
-              <input type="text" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} className="min-h-[44px] w-full rounded-xl border border-afro-dark/10 bg-afro-light px-4 text-base text-afro-dark transition-colors focus:border-afro-orange focus:outline-none focus:ring-1 focus:ring-afro-orange/30" placeholder="Ex : Marque alliée du cheveu texturé" />
+              <textarea rows={2} maxLength={500} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} className="min-h-[44px] w-full rounded-xl border border-afro-dark/10 bg-afro-light px-4 py-2.5 text-base text-afro-dark transition-colors focus:border-afro-orange focus:outline-none focus:ring-1 focus:ring-afro-orange/30" placeholder="Ex : Marque alliée du cheveu texturé" />
+              <p className="mt-1 text-right text-xs text-afro-dark/40">{form.description.length}/500</p>
             </div>
             <div>
               <ImageUpload value={form.logo} onChange={(url) => setForm({ ...form, logo: url })} folder="logos" label="Logo" placeholder="Uploader ou glisser un logo" />
@@ -126,6 +134,9 @@ export default function DirectoryAdmin({ items }: { items: Item[] }) {
               <input type="number" value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: parseInt(e.target.value) || 0 })} className="min-h-[44px] w-full rounded-xl border border-afro-dark/10 bg-afro-light px-4 text-base text-afro-dark transition-colors focus:border-afro-orange focus:outline-none focus:ring-1 focus:ring-afro-orange/30" />
             </div>
           </div>
+          {error && (
+            <p className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">{error}</p>
+          )}
           <div className="mt-4 flex flex-wrap gap-3">
             <button onClick={handleSave} disabled={pending || !form.name} className="inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-afro-orange px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-afro-orange/90 disabled:opacity-50">
               <Save className="h-4 w-4" />
